@@ -8,5 +8,5 @@ session_start();
 $loginController = new \controller\LoginController();
 $htmlBody = $loginController->doLogin();
 
-$view = new \view\HTMLview("utf-8");
+$view = new \view\HTMLview();
 $view->showHTML("TripShotsMapper", $htmlBody);

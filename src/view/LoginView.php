@@ -80,12 +80,12 @@ class LoginView {
 	public function showLoginPage() {
 
 		$html = "
-			<div id='maincontainer'>
-				 <h1>TripShotsMapper Loginpage</h1>
-				 <p><a href='?return' class='return'>Tillbaka</a></p>
-				 <form name='login' method='post' accept-charset='utf-8' action='?login'>			
-					<div id='loginwrapper'>
-					<p>Login - Skriv in användarnamn och lösenord</p>";
+			<div class='container'>
+				<div class='jumbotron'>
+				 	<h1>TripShotsMapper Loginpage</h1>
+				</div>
+				 <form role='form' name='login' method='post' accept-charset='utf-8' action='?login'>			
+					<p>Login - Enter your username and password</p>";
 
 		if($this->getMessage() !== null) {
 
@@ -93,12 +93,15 @@ class LoginView {
 		};
 
 	    $html .= "
-						<p><label for='username'>Användarnamn</label>
-						<input type='username' name='Username' id='nameinput' value='$this->name'></p>
-						<p><label for='password'>Lösenord</label>
-						<input type='password' name='Password' id='passwordinput'></p>
+	    				<div class='form-group'>
+							<label for='username'>Username:</label>
+							<input type='username' name='Username' class='form-control' id='nameinput' value='$this->name'></p>
 						</div>
-						<p><input type='submit' name='submit' id='loginButton' value='Logga in'></p>			
+						<div class='form-group'>
+							<label for='password'>Password:</label>
+							<input type='password' name='Password' class='form-control' id='passwordinput'></p>
+						</div>
+						<button type='submit' name='submit' class='btn btn-default'>Submit</button>			
 					</form>
 				</div>
 			";
