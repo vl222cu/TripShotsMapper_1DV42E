@@ -80,10 +80,6 @@ class LoginView {
 	public function showLoginPage() {
 
 		$html = "
-			<div class='container'>
-				<div class='jumbotron'>
-				 	<h1>TripShotsMapper Loginpage</h1>
-				</div>
 				 <form role='form' name='login' method='post' accept-charset='utf-8' action='?login'>			
 					<p>Login - Enter your username and password</p>";
 
@@ -103,7 +99,6 @@ class LoginView {
 						</div>
 						<button type='submit' name='submit' class='btn btn-default'>Submit</button>			
 					</form>
-				</div>
 			";
 
 			return $html;
