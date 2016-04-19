@@ -36,7 +36,7 @@ class LoginController {
 					break;
 
 				default: 
-					return $this->loginView->showLoginPage();
+					return $this->loginView->LoginMainPage();
 			}
 
 		} catch (\Exception $e) {

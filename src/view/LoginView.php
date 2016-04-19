@@ -103,4 +103,26 @@ class LoginView {
 
 			return $html;
 	}
+
+	public function LoginMainPage() {
+
+		return "<nav class='navbar navbar-default navbar-custom'>
+                            <div class='container'>
+                                <div class='navbar-header'>
+                                    <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='#myNavBar'>
+                                        <span class='sr-only'>Toggle navigation</span>
+                                        <span class='icon-bar'></span>
+                                        <span class='icon-bar'></span>
+                                        <span class='icon-bar'></span>
+                                    </button>
+                                </div>
+                                <div class='collapse navbar-collapse' id='myNavBar'>
+                                    <ul class='nav navbar-nav navbar-right'>
+                                        <li><a href='?loginpage'><span class='glyphicon glyphicon-log-in'></span>Sign In</a></li>
+                                        <li><a href='#'><span class='glyphicon glyphicon-user'></span>Sign up</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>";
+	}
 }

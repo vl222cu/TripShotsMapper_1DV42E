@@ -1,16 +1,15 @@
 <?php
      
-require_once("src/controller/LoginController.php");
+require_once("src/controller/MasterController.php");
 require_once("src/view/HTMLView.php");
 
 session_start();
 
-$loginController = new \controller\LoginController();
-$htmlBody = $loginController->doLogin();
+$masterController = new \controller\MasterController();
+$masterController->handleInput();
 
-$view = new \view\HTMLview();
-$view->showHTML("TripShotsMapper", $htmlBody);
-
-
+$htmlBody = $masterController->generateOutput();
+$htmlView = new \view\HTMLView();
+$htmlView->showHTML("TripShotsMapper", $htmlBody);
 
  
