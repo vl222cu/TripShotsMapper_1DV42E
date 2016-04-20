@@ -23,6 +23,6 @@ abstract class Repository {
 		} catch (PDOException $e) {
 
 			echo $e->getMessage();
-		}			
+		}	
 	}
 }

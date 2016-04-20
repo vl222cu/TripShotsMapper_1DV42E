@@ -11,10 +11,12 @@ class MasterController {
 	private $view;
 
 	public function __construct() {
+
 		$this->loginModel = new \model\LoginModel();
 	}
 
 	public function handleInput() {
+
 		if ($this->loginModel->UserIsLoggedIn()) {
 			
 			echo "User is logged in!";
@@ -26,6 +28,7 @@ class MasterController {
 	}
 
 	public function generateOutput() {
+		
 		return $this->view;
 	}
 }

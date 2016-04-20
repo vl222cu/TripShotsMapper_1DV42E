@@ -19,14 +19,11 @@ class LoginModel {
 
     }
     
-    /** 
-     * Skickar användaruppgifter till databasen
-     */
     public function authenticateUser($userName, $password) {
 
-        $ret = $this->loginRepository->getUserCredentialsFromDB($userName, $password);
+        $user = $this->loginRepository->getUserCredentialsFromDB($userName, $password);
 
-        if ($ret) {
+        if ($user) {
  
             return true;
 
@@ -36,9 +33,20 @@ class LoginModel {
         }
     }
 
-    /** 
-     * Sätter sessionsnamn om användaren lyckas logga in
-     */
+    public function authenticateUserSignUp($userName, $password) {
+
+        $newUser = $this->loginRepository->setUserCredentialsInDB($userName, $password);
+
+        if ($newUser) {
+ 
+            return true;
+
+        } else {
+
+            return false;
+        }
+    }
+
    	public function setSessionVariables() {
 
 		$_SESSION[$this->loggedIn] = true;
@@ -47,9 +55,6 @@ class LoginModel {
 
     }
 
-    /** 
-     * Hämtar sessioninformation
-     */
     public function getSessionUsername() {
 
         if(isset($_SESSION[$this->userName])) {
@@ -58,9 +63,6 @@ class LoginModel {
         }
     }
 
-    /** 
-     * Kollar om användaren är inloggad
-     */
     public function userIsLoggedIn() {
 
 		if (isset($_SESSION[$this->loggedIn]) && $_SESSION[$this->loggedIn]) {
@@ -71,9 +73,6 @@ class LoginModel {
 		return false;
 	}
 
-    /** 
-     * Hämtar HTTP-Agentinformation
-     */
 	public function getSessionControl() {
 
 		if ($_SESSION[$this->userAgent] === $_SERVER[$this->HTTPUserAgent]) {

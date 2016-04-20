@@ -24,8 +24,8 @@ class LoginRepository extends base\Repository {
     	$db = $this->connection();
 
     	$sql = " SELECT * FROM $this->dbTable WHERE " . self::$userName . " = ?" . " AND " . self::$password . " = ?";
-    	    	$query = $db->prepare($sql);
-    	    	$query->execute(array($user, $pwd));  	
+    	$query = $db->prepare($sql);
+    	$query->execute(array($user, $pwd));  	
 
     	if($query->rowCount() > 0) {
 
@@ -34,6 +34,35 @@ class LoginRepository extends base\Repository {
         } 
 
         return false;
+    }
+
+    public function setUserCredentialsInDB($user, $pwd) {
+
+        $db = $this->connection();
+
+        $sql = " SELECT * FROM $this->dbTable WHERE " . self::$userName . " = ?";
+        $query = $db->prepare($sql);
+        $query->execute(array($user));  
+
+
+        if($query->rowCount() > 0) {
+
+            return false;
+
+        } else {
+
+            $sql = " INSERT INTO $this->dbTable" . "(" . self::$userName . "," . self::$password . ")" . " VALUES (?, ?)";
+                    $query = $db->prepare($sql);
+                    $query->execute(array($user, $pwd));  
+
+            if($query->rowCount() > 0) {
+
+                return true;
+
+            } 
+
+            return false;
+        }
     }
 
 }
