@@ -5,18 +5,21 @@ namespace controller;
 require_once("./src/model/LoginModel.php");
 require_once("./src/model/LoginRepository.php");
 require_once("./src/view/LoginView.php");
+require_once("./src/view/StartView.php");
 
 class LoginController {
 
 	private $loginModel;
 	private $loginRepository;
 	private $loginView;
+	private $startView;
 
 	public function __construct() {
 
 		$this->loginModel = new \model\LoginModel();
 		$this->loginRepository = new \model\LoginRepository();
 		$this->loginView = new \view\LoginView($this->loginModel);
+		$this->startView = new \view\StartView();
 	}
 
 	public function doLogin() {
@@ -35,16 +38,16 @@ class LoginController {
 					return $this->loginUser();
 					break;
 
-				case \view\LoginView::$actionSignUpPage:
-					return $this->loginView->showSignUpPage();
-					break;
-
 				case \view\LoginView::$actionSignUp:
 				return $this->signUpNewUser();
 				break;
 
+				case \view\LoginView::$actionCancelLogin:
+				return $this->startView->showStartView();
+				break;
+
 				default: 
-					return $this->loginView->LoginMainPage();
+					return $this->startView->showStartView();
 			}
 
 		} catch (\Exception $e) {

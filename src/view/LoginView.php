@@ -13,7 +13,7 @@ class LoginView {
 	public static $actionLoginPage = "loginpage";
 	public static $actionLogin = "login";
 	public static $actionLogout = "logout";
-	public static $actionSignUpPage = "signuppage";
+	public static $actionCancelLogin = "cancelLogin";
 	public static $actionSignUp = "signup";
 	const MESSAGE_ERROR_USERNAME_PASSWORD = 'Wrong username and/or password';
 	const MESSAGE_ERROR_USERNAME = 'Username is missing';
@@ -49,13 +49,13 @@ class LoginView {
 				return $action;
 				break;
 
-			case self::$actionSignUpPage:
-				$action = self::$actionSignUpPage;
+			case self::$actionSignUp:
+				$action = self::$actionSignUp;
 				return $action;
 				break;
 
-			case self::$actionSignUp:
-				$action = self::$actionSignUp;
+			case self::$actionCancelLogin:
+				$action = self::$actionCancelLogin;
 				return $action;
 				break;
 
@@ -136,13 +136,15 @@ class LoginView {
 
 		$html = "<div class='top-content'>       	
             		<div class='inner-bg'>
-            			<a href='#'><button type ='button' class ='close' aria-hidden='true'>&times;</button></a>
+            			<a href='?cancelLogin'><button type ='button' class ='close' aria-hidden='true'>&times;</button></a>
                 		<div class='container'>
                 
 		";
 
 		if($this->getMessage() !== null) {
+
 			$html .= "<div class='loginmsg'>$this->message</div>";
+
 		};
 
 		$html .= "	<div class='row'>
@@ -212,11 +214,12 @@ class LoginView {
                 </div>
             </div>           
 		";
+
 		return $html;
 
 	}
 
-	public function LoginMainPage() {
+/*	public function LoginMainPage() {
 
 		return "<nav class='navbar navbar-default navbar-custom'>
                             <div class='container'>
@@ -235,7 +238,7 @@ class LoginView {
                                 </div>
                             </div>
                         </nav>";
-	}
+	} */
 
 /*	public function showSignUpPage() {
 
