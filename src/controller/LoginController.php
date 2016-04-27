@@ -82,42 +82,25 @@ class LoginController {
 	}
 
 	public function signUpNewUser() {
-
 		if ($this->loginModel->authenticateUserSignUp($this->loginView->getPostedUserName(), $this->loginView->getPostedPassword())) {
-
 			$this->loginModel->setSessionVariables();
 			$this->loginView->setMessage(\view\loginView::MESSAGE_SUCCESS_SIGNUP);							
-
 			return $this->loginView->showSignUpPage();
-
 		} else {
 						
 			if ($this->loginView->getPostedUserName() == "" || strlen($this->loginView->getPostedUserName()) < 3) {
-
 				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_USERNAME_TOO_SHORT);
-
 			} elseif ($this->loginView->getPostedPassword() == "" || strlen($this->loginView->getPostedPassword()) < 6) {
-
 				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_PASSWORD_TOO_SHORT);
-
 			} elseif ($this->loginView->getPostedUserName() == "" && $this->loginView->getPostedPassword() == "" && $this->loginView->getConfirmedPassword() == "") {
-
 				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_USERNAME_PASSWORD_MISSING);
-
 			} elseif (preg_match('/[^A-Za-z0-9._\-$]/', $this->loginView->getPostedUserName())) {
-
 				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_USERNAME_INVALID_CHARACTERS);
-
 			} elseif (preg_match('/[^A-Za-z0-9._\-$]/', $this->loginView->getPostedPassword())) {
-
 				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_PASSWORD_INVALID_CHARACTERS);
-
 			} elseif ($this->loginView->getPostedPassword() != $this->loginView->getConfirmedPassword()) {
-
 				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_PASSWORD_NO_MATCH);
-
 			} else {
-
 				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_USERNAME_ALREADY_EXISTS);
 			} 					
 			

@@ -110,17 +110,13 @@ class LoginView {
 		$this->message = '<p>' . $msg . '</p>';
 	}
 
-	public function showLoginPage() {
-
+/*	public function showLoginPage() {
 		$html = "
 				 <form role='form' name='login' method='post' accept-charset='utf-8' action='?login'>			
 					<p>Login - Enter your username and password</p>";
-
 		if($this->getMessage() !== null) {
-
 			$html .= "<div class='loginmsg'>$this->message</div>";
 		};
-
 	    $html .= "
 	    				<div class='form-group'>
 							<label for='username'>Username:</label>
@@ -133,8 +129,91 @@ class LoginView {
 						<button type='submit' name='submit' class='btn btn-default'>Submit</button>			
 					</form>
 			";
-
 			return $html;
+	} */
+
+	public function showLoginPage() {
+
+		$html = "<div class='top-content'>       	
+            		<div class='inner-bg'>
+            			<a href='#'><button type ='button' class ='close' aria-hidden='true'>&times;</button></a>
+                		<div class='container'>
+                
+		";
+
+		if($this->getMessage() !== null) {
+			$html .= "<div class='loginmsg'>$this->message</div>";
+		};
+
+		$html .= "	<div class='row'>
+                        <div class='col-sm-5'>
+                        	<div class='form-box'>
+	                        	<div class='form-top'>
+	                        		<div class='form-top-left'>
+	                        			<h3>Login to our site</h3>
+	                            		<p>Enter username and password to log on:</p>
+	                        		</div>
+	                        		<div class='form-top-right'>
+	                        			<i class='fa fa-key'></i>
+	                        		</div>
+	                            </div>
+	                            <div class='form-bottom'>
+				                    <form role='form' name='login' action='?login' method='post' class='login-form' accept-charset='utf-8' >
+				                    	<div class='form-group'>
+				                    		<label class='sr-only' for='form-username'>Username</label>
+				                        	<input type='text' name='Username' placeholder='Username...' class='form-username form-control' id='form-username'>
+				                        </div>
+				                        <div class='form-group'>
+				                        	<label class='sr-only' for='form-password'>Password</label>
+				                        	<input type='password' name='Password' placeholder='Password...' class='form-password form-control' id='form-password'>
+				                        </div>
+				                        <button type='submit' class='btn'>Sign in!</button>
+				                    </form>
+			                    </div>
+		                    </div>
+		                </div>
+		                <div class='col-sm-1 middle-border'></div>
+                        <div class='col-sm-1'></div>
+                        	
+                        <div class='col-sm-5'>
+                        	
+                        	<div class='form-box'>
+                        		<div class='form-top'>
+	                        		<div class='form-top-left'>
+	                        			<h3>Sign up now</h3>
+	                            		<p>Fill in the form below to get instant access:</p>
+	                        		</div>
+	                        		<div class='form-top-right'>
+	                        			<i class='fa fa-pencil'></i>
+	                        		</div>
+	                            </div>
+	                            <div class='form-bottom'>
+				                    <form role='form' name='signup' action='?signup' method='post' class='registration-form' accept-charset='utf-8'>
+				                    	<div class='form-group'>
+				                    		<label class='sr-only' for='form-username'>Username</label>
+				                        	<input type='text' name='Username' placeholder='Username...'  class='form-username form-control' id='form-username'>
+				                        </div>
+				                         <div class='form-group'>
+				                        	<label class='sr-only' for='form-password'>Password</label>
+				                        	<input type='password' name='Password' placeholder='Password...' class='form-password form-control' id='form-password'>
+				                        </div>
+				                        <div class='form-group'>
+				                        	<label class='sr-only' for='form-password'>Password</label>
+				                        	<input type='password' name='confirmedPassword' placeholder='Confirm password...' class='form-password form-control' id='form-confirmPassword'>
+				                        </div>
+				                        <button type='submit' class='btn'>Sign me up!</button>
+				                    </form>
+			                    </div>
+                        	</div>
+                        	
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>           
+		";
+		return $html;
+
 	}
 
 	public function LoginMainPage() {
@@ -151,15 +230,14 @@ class LoginView {
                                 </div>
                                 <div class='collapse navbar-collapse' id='myNavBar'>
                                     <ul class='nav navbar-nav navbar-right'>
-                                        <li><a href='?loginpage'><span class='glyphicon glyphicon-log-in'></span>Sign In</a></li>
-                                        <li><a href='?signuppage'><span class='glyphicon glyphicon-user'></span>Sign up</a></li>
+                                        <li><a href='?loginpage'><span class='glyphicon glyphicon-log-in'></span> Login | <span class='glyphicon glyphicon-user'></span> Sign up</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </nav>";
 	}
 
-	public function showSignUpPage() {
+/*	public function showSignUpPage() {
 
 		$html = "<div class='container'>
     				<div class='row'>
@@ -200,5 +278,5 @@ class LoginView {
 				</div>";
 
 		return $html;				 
-	}
+	} */
 }
