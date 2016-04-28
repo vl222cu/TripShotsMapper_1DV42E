@@ -29,6 +29,6 @@ class MasterController {
 
 	public function generateOutput() {
 		
-		return $this->view;
-	}
+		return $this->view;	
+	} 
 }

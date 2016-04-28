@@ -10,7 +10,7 @@ class LoginView {
 	private static $userName = 'Username';
 	private static $password = 'Password';
 	private static $confirmedPassword = 'confirmedPassword';
-	public static $actionLoginPage = "loginpage";
+	public static $actionLoginPage = "loginpage"; 
 	public static $actionLogin = "login";
 	public static $actionLogout = "logout";
 	public static $actionCancelLogin = "cancelLogin";
@@ -27,6 +27,7 @@ class LoginView {
 	const MESSAGE_SUCCESS_SIGNUP = 'You are now signed up';
 	const MESSAGE_ERROR_PASSWORD_NO_MATCH = 'Confirmed password does not match password';
 	const MESSAGE_ERROR_USERNAME_PASSWORD_MISSING = 'Username needs to have a minimum of 3 characters and Password needs to have a minimum of 6 characters';
+	const MESSAGE_ERROR_SIGNUP = 'Something went wrong! Please try again';
 
 	public function __construct(\model\LoginModel $loginModel) {
 		
@@ -42,7 +43,7 @@ class LoginView {
 			case self::$actionLoginPage:
 				$action = self::$actionLoginPage;
 				return $action;
-				break;
+				break; 
 
 			case self::$actionLogin:
 				$action = self::$actionLogin;

@@ -32,22 +32,23 @@ class LoginController {
 
 				case \view\LoginView::$actionLoginPage:
 					return $this->loginView->showLoginPage();
-					break;
+					break; 
 
 				case \view\LoginView::$actionLogin:
 					return $this->loginUser();
 					break;
 
 				case \view\LoginView::$actionSignUp:
-				return $this->signUpNewUser();
-				break;
+					return $this->signUpNewUser();
+					break;
 
 				case \view\LoginView::$actionCancelLogin:
-				return $this->startView->showStartView();
-				break;
+					return $this->startView->showStartView();
+					break;
 
 				default: 
 					return $this->startView->showStartView();
+					break;
 			}
 
 		} catch (\Exception $e) {
@@ -85,29 +86,47 @@ class LoginController {
 	}
 
 	public function signUpNewUser() {
-		if ($this->loginModel->authenticateUserSignUp($this->loginView->getPostedUserName(), $this->loginView->getPostedPassword())) {
-			$this->loginModel->setSessionVariables();
-			$this->loginView->setMessage(\view\loginView::MESSAGE_SUCCESS_SIGNUP);							
-			return $this->loginView->showSignUpPage();
-		} else {
-						
-			if ($this->loginView->getPostedUserName() == "" || strlen($this->loginView->getPostedUserName()) < 3) {
-				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_USERNAME_TOO_SHORT);
-			} elseif ($this->loginView->getPostedPassword() == "" || strlen($this->loginView->getPostedPassword()) < 6) {
-				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_PASSWORD_TOO_SHORT);
-			} elseif ($this->loginView->getPostedUserName() == "" && $this->loginView->getPostedPassword() == "" && $this->loginView->getConfirmedPassword() == "") {
-				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_USERNAME_PASSWORD_MISSING);
-			} elseif (preg_match('/[^A-Za-z0-9._\-$]/', $this->loginView->getPostedUserName())) {
-				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_USERNAME_INVALID_CHARACTERS);
-			} elseif (preg_match('/[^A-Za-z0-9._\-$]/', $this->loginView->getPostedPassword())) {
-				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_PASSWORD_INVALID_CHARACTERS);
-			} elseif ($this->loginView->getPostedPassword() != $this->loginView->getConfirmedPassword()) {
-				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_PASSWORD_NO_MATCH);
-			} else {
-				$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_USERNAME_ALREADY_EXISTS);
-			} 					
-			
-			return $this->loginView->showSignUpPage();
-		}
+
+		if ($this->loginView->getPostedUserName() == "" && $this->loginView->getPostedPassword() == "" && $this->loginView->getConfirmedPassword() == "") {
+
+			$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_USERNAME_PASSWORD_MISSING);
+
+		} elseif ($this->loginView->getPostedUserName() == "" || strlen($this->loginView->getPostedUserName()) < 3) {
+
+			$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_USERNAME_TOO_SHORT);
+
+		} elseif ($this->loginView->getPostedPassword() == "" || strlen($this->loginView->getPostedPassword()) < 6) {
+
+			$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_PASSWORD_TOO_SHORT);
+
+		} elseif (preg_match('[\W]', $this->loginView->getPostedUserName())) {
+
+			$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_USERNAME_INVALID_CHARACTERS);
+
+		} elseif (preg_match('[\W]', $this->loginView->getPostedPassword())) {
+
+			$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_PASSWORD_INVALID_CHARACTERS);
+
+		} elseif ($this->loginView->getPostedPassword() !== $this->loginView->getConfirmedPassword()) {
+
+			$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_PASSWORD_NO_MATCH);
+
+		} elseif (($this->loginView->getPostedUserName() && $this->loginView->getPostedPassword() && $this->loginView->getConfirmedPassword()) !== null) {
+
+			$isUserRegistrationValid = $this->loginModel->authenticateUserSignUp($this->loginView->getPostedUserName(), $this->loginView->getPostedPassword());
+
+			if($isUserRegistrationValid == true) {
+
+				$this->loginView->setMessage(\view\loginView::MESSAGE_SUCCESS_SIGNUP);	
+                return $this->loginView->showLoginPage(); /*TODO: skapa inloggad sida med karta**/
+
+            } else {
+
+            	$this->loginView->setMessage(\view\loginView::MESSAGE_ERROR_USERNAME_ALREADY_EXISTS);
+            	return $this->loginView->showLoginPage();	
+            }
+		} 
+
+		return $this->loginView->showLoginPage();		
 	}
 }

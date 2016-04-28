@@ -10,6 +10,4 @@ $masterController->handleInput();
 
 $htmlBody = $masterController->generateOutput();
 $htmlView = new \view\HTMLView();
-$htmlView->showHTML("TripShotsMapper", $htmlBody);
-
- 
+$htmlView->showHTML("TripShotsMapper", $htmlBody); 
