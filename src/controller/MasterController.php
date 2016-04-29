@@ -19,7 +19,7 @@ class MasterController {
 
 		if ($this->loginModel->UserIsLoggedIn()) {
 			
-			echo "User is logged in!";
+			$this->view = new \view\MapView();
 		} else {
 			$user = new \controller\LoginController();
 

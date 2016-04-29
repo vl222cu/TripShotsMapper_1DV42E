@@ -6,6 +6,7 @@ require_once("./src/model/LoginModel.php");
 require_once("./src/model/LoginRepository.php");
 require_once("./src/view/LoginView.php");
 require_once("./src/view/StartView.php");
+require_once("./src/view/MapView.php");
 
 class LoginController {
 
@@ -13,6 +14,7 @@ class LoginController {
 	private $loginRepository;
 	private $loginView;
 	private $startView;
+	private $mapView;
 
 	public function __construct() {
 
@@ -20,6 +22,7 @@ class LoginController {
 		$this->loginRepository = new \model\LoginRepository();
 		$this->loginView = new \view\LoginView($this->loginModel);
 		$this->startView = new \view\StartView();
+		$this->mapView = new \view\MapView();
 	}
 
 	public function doLogin() {
@@ -64,7 +67,7 @@ class LoginController {
 			$this->loginModel->setSessionVariables();
 			$this->loginView->setMessage(\view\loginView::MESSAGE_SUCCESS_LOGIN);							
 
-			return $this->loginView->showLoginPage();
+			return $this->mapView->showMapView();
 
 		} else {
 						
