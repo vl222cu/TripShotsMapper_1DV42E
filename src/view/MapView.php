@@ -8,8 +8,8 @@ class MapView {
 
 		$html = "	
 					<div id='map-canvas'></div>
-					<script type='text/javascript'src='https://maps.googleapis.com/maps/api/js?key=APIKEY'></script>
-					<script src='./src/js/addMarker.js'></script>
+					<script type='text/javascript'src='https://maps.googleapis.com/maps/api/js?key=AIzaSyABwLvv5aTCn-nOShcBUzDhUstxjRIR5gc'></script>
+					<script src='./script/marker.js'></script>
 		";
 
 		return $html;

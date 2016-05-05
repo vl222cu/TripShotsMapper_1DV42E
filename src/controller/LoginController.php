@@ -3,6 +3,7 @@
 namespace controller;
 
 require_once("./src/model/LoginModel.php");
+require_once("./src/model/markerRepository.php");
 require_once("./src/model/LoginRepository.php");
 require_once("./src/view/LoginView.php");
 require_once("./src/view/StartView.php");
@@ -11,18 +12,22 @@ require_once("./src/view/MapView.php");
 class LoginController {
 
 	private $loginModel;
+	private $markerModel;
 	private $loginRepository;
 	private $loginView;
 	private $startView;
 	private $mapView;
+	private $user;
 
 	public function __construct() {
 
 		$this->loginModel = new \model\LoginModel();
+		$this->markerRepository = new \model\markerRepository();
 		$this->loginRepository = new \model\LoginRepository();
 		$this->loginView = new \view\LoginView($this->loginModel);
 		$this->startView = new \view\StartView();
 		$this->mapView = new \view\MapView();
+		$this->user = null;
 	}
 
 	public function doLogin() {
@@ -64,7 +69,8 @@ class LoginController {
 
 		if ($this->loginModel->authenticateUser($this->loginView->getPostedUserName(), $this->loginView->getPostedPassword())) {
 
-			$this->loginModel->setSessionVariables();
+			$this->loginModel->setSessionVariables($this->loginView->getPostedUserName());
+			$this->markerRepository->getAllMarkersFromDB($this->loginRepository->getUserId($this->loginView->getPostedUserName()));
 			$this->loginView->setMessage(\view\loginView::MESSAGE_SUCCESS_LOGIN);							
 
 			return $this->mapView->showMapView();

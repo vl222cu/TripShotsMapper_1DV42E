@@ -6,15 +6,19 @@ require_once("./src/model/LoginRepository.php");
 
 class LoginModel {
 
-	private $userName = 'username';
-    private $password = 'password';
-    private $loggedIn = 'LoggedIn';
-    private $userAgent = 'userAgent';
-    private $HTTPUserAgent = 'HTTP_USER_AGENT';
+	private $userName;
+    private $password;
+    private $loggedIn;
+    private $userAgent;
     private $loginRepository;
+    private static $HTTPUserAgent = 'HTTP_USER_AGENT';
 
     public function __construct() {
 
+        $this->userName = null;
+        $this->password = null;
+        $this->loggedIn = false;
+        $this->userAgent = null;
         $this->loginRepository = new LoginRepository();
 
     }
@@ -47,12 +51,11 @@ class LoginModel {
         }
     }
 
-   	public function setSessionVariables() {
+   	public function setSessionVariables($userName) {
 
 		$_SESSION[$this->loggedIn] = true;
-        $_SESSION[$this->userName] = $this->userName;
-        $_SESSION[$this->userAgent] = $_SERVER[$this->HTTPUserAgent];
-
+        $_SESSION[$this->userName] = $userName;
+        $_SESSION[$this->userAgent] = $_SERVER[self::$HTTPUserAgent];
     }
 
     public function getSessionUsername() {
@@ -75,7 +78,7 @@ class LoginModel {
 
 	public function getSessionControl() {
 
-		if ($_SESSION[$this->userAgent] === $_SERVER[$this->HTTPUserAgent]) {
+		if ($_SESSION[$this->userAgent] === $_SERVER[self::$HTTPUserAgent]) {
 
 			return true;
 		}

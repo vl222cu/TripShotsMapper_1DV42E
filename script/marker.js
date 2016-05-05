@@ -7,7 +7,7 @@ $;
 // Creates interactive Google Maps
 function initialize () {
     var mapOptions = {
-        center: new google.maps.LatLng(59.999999, 14.9999999),
+        center: new google.maps.LatLng(59.999999, 14.999999),
         zoom: 3
     };
     
@@ -87,3 +87,6 @@ function placeMarker (location, html) {
 }
         
 google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
