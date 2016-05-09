@@ -8,7 +8,7 @@ $;
 function initialize () {
     var mapOptions = {
         center: new google.maps.LatLng(59.999999, 14.999999),
-        zoom: 3
+        zoom: 2
     };
     
     map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -18,6 +18,20 @@ function initialize () {
     google.maps.event.addListener(map, 'click', function(event) {
         placeMarker(event.latLng);
     });
+
+    $.get("./helper/AjaxHandler.php?action=markers", function (data) {
+        console.log(data);
+             $(data).find("marker").each(function () {
+                  //Get user input values for the marker from database
+                 var point     = {lat: parseFloat($(this).attr('lat')), lng: parseFloat($(this).attr('lng'))};
+                 var html      = $(this).attr('comment');
+                   //call placeMarker() function for xml loaded marker
+                   console.log(html);
+                   console.log(point);
+                   placeMarker(point, html);
+ 
+             });
+         }); 
 }
     
 // Source: https://developers.google.com/maps/documentation/javascript/events

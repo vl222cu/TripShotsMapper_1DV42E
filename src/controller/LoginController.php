@@ -3,7 +3,7 @@
 namespace controller;
 
 require_once("./src/model/LoginModel.php");
-require_once("./src/model/markerRepository.php");
+require_once("./src/model/MarkerRepository.php");
 require_once("./src/model/LoginRepository.php");
 require_once("./src/view/LoginView.php");
 require_once("./src/view/StartView.php");
@@ -22,7 +22,7 @@ class LoginController {
 	public function __construct() {
 
 		$this->loginModel = new \model\LoginModel();
-		$this->markerRepository = new \model\markerRepository();
+		$this->markerRepository = new \model\MarkerRepository();
 		$this->loginRepository = new \model\LoginRepository();
 		$this->loginView = new \view\LoginView($this->loginModel);
 		$this->startView = new \view\StartView();
