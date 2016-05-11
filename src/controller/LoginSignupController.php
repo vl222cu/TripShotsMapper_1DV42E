@@ -86,32 +86,36 @@ class LoginSignupController {
 			}
 
 		}
-
-		if ($this->loginSignupModel->authenticateUser($this->loginSignupView->getPostedUserName(), $this->loginSignupView->getPostedPassword())) {
-
-			$this->loginSignupModel->setSessionVariables($this->loginSignupView->getPostedUserName());
-		//	$this->markerRepository->getAllMarkersFromDB($this->loginRepository->getUserId($this->loginView->getPostedUserName()));
-			$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_SUCCESS_LOGIN);						
-
-			return $this->mapView->showMapView();
-
-		} else {
 						
-			if ($this->loginSignupView->getPostedUserName() == "") {
+		if ($this->loginSignupView->getPostedUserName() == "") {
 
-				$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_ERROR_USERNAME);
+			$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_ERROR_USERNAME);
 
-			} elseif ($this->loginSignupView->getPostedPassword() == "") {
+		} elseif ($this->loginSignupView->getPostedPassword() == "") {
 
-				$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_ERROR_PASSWORD);
+			$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_EMPTY_PASSWORD);
+
+		} elseif (($this->loginSignupView->getPostedUserName() && $this->loginSignupView->getPostedPassword()) !== null) {
+
+			$isUserLoginValid = $this->loginSignupModel->verifyUserPassword($this->loginSignupView->getPostedUserName(), $this->loginSignupView->getPostedPassword());
+			var_dump($isUserLoginValid);
+			if($isUserLoginValid == true) {
+
+				$this->loginSignupModel->setSessionVariables($this->loginSignupView->getPostedUserName());
+				//	$this->markerRepository->getAllMarkersFromDB($this->loginRepository->getUserId($this->loginView->getPostedUserName()));
+				$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_SUCCESS_LOGIN);						
+				
+				return $this->mapView->showMapView();
 
 			} else {
 
-				$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_ERROR_USERNAME_PASSWORD);
-			} 					
-			
-			return $this->loginSignupView->showLoginSignupPage();
-		}
+	            $this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_ERROR_USERNAME_PASSWORD);
+
+	            return $this->loginSignupView->showLoginSignupPage();				
+	        }
+	    }
+
+		return $this->loginSignupView->showLoginSignupPage();
 	}
 
 	public function signUpNewUser() {
@@ -142,9 +146,11 @@ class LoginSignupController {
 
 		} elseif (($this->loginSignupView->getPostedUserName() && $this->loginSignupView->getPostedPassword() && $this->loginSignupView->getConfirmedPassword()) !== null) {
 
-			$isUserRegistrationValid = $this->loginSignupModel->authenticateUserSignUp($this->loginSignupView->getPostedUserName(), $this->loginSignupView->getPostedPassword());
+			$hashedPassword = $this->loginSignupModel->setPasswordhash($this->loginSignupView->getPostedPassword());
 
-			if($isUserRegistrationValid == true) {
+			$isUserRegistrationValid = $this->loginSignupModel->authenticateUserSignUp($this->loginSignupView->getPostedUserName(), $hashedPassword);
+
+			if ($isUserRegistrationValid == true) {
 
 				$this->loginSignupView->setMessage(\view\LoginSignupView::MESSAGE_SUCCESS_SIGNUP);	
                 return $this->mapView->showMapView();

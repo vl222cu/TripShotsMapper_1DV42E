@@ -3,6 +3,7 @@
 namespace model;
 
 require_once("./src/helper/SessionHandler.php");
+require_once("./library/password_compat-master/lib/password.php");
 require_once("./src/model/LoginSignupRepository.php");
 
 class LoginSignupModel {
@@ -88,7 +89,7 @@ class LoginSignupModel {
 	}
 
 	public function logOut() {
-        
+
         // Unset all session values 
         $_SESSION = array();
  
@@ -105,4 +106,24 @@ class LoginSignupModel {
 
         session_destroy();
 	}
+
+    public function setPasswordhash($password) {
+
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+        return $hashedPassword;
+    }
+
+    public function verifyUserPassword($user, $pwd) {
+
+        $dbPwd = $this->loginSignupRepository->getUserDBPassword($user);
+
+        if(password_verify($pwd, $dbPwd)) {
+
+            return true;
+        }
+
+        return false;
+    }
 }
+

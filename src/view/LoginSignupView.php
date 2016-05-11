@@ -17,7 +17,8 @@ class LoginSignupView {
 	public static $actionSignUp = "signup";
 	const MESSAGE_ERROR_USERNAME_PASSWORD = 'Wrong username and/or password';
 	const MESSAGE_ERROR_USERNAME = 'Username is missing';
-	const MESSAGE_ERROR_PASSWORD = 'Password is missing';
+	const MESSAGE_EMPTY_PASSWORD = 'Password is missing';
+	const MESSAGE_ERROR_PASSWORD = 'Password is not correct';
 	const MESSAGE_SUCCESS_LOGIN = 'You are logged in!';
 	const MESSAGE_ERROR_USERNAME_TOO_SHORT = 'Username needs to have a minimum of 3 characters';
 	const MESSAGE_ERROR_USERNAME_INVALID_CHARACTERS = 'Username has invalid characters';

@@ -84,4 +84,21 @@ class LoginSignupRepository extends base\Repository {
 
         return $result[self::$userID];       
     }
+
+    public function getUserDBPassword($user) {
+
+        $db = $this->connection();
+
+        $sql = " SELECT " . self::$password . " FROM $this->dbTable WHERE " . self::$userName . " = ?";
+        $query = $db->prepare($sql);
+        $query->execute(array($user)); 
+        $result = $query->fetch();
+
+        if(!$result) {
+
+            return false;
+        }
+
+        return $result[self::$password];       
+    }
 }
