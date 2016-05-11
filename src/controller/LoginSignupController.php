@@ -71,12 +71,28 @@ class LoginSignupController {
 
 	public function loginUser() {
 
+		/** 
+		 * Prevent Session hijacking
+	 	*/
+		if ($this->loginSignupModel->userIsLoggedIn()) {
+
+			if ($this->loginSignupModel->getSessionControl() == false) {
+
+				return $this->loginSignupView->showLoginSignupPage();
+
+			} else {
+
+				return $this->startView->showStartView();
+			}
+
+		}
+
 		if ($this->loginSignupModel->authenticateUser($this->loginSignupView->getPostedUserName(), $this->loginSignupView->getPostedPassword())) {
 
 			$this->loginSignupModel->setSessionVariables($this->loginSignupView->getPostedUserName());
 		//	$this->markerRepository->getAllMarkersFromDB($this->loginRepository->getUserId($this->loginView->getPostedUserName()));
 			$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_SUCCESS_LOGIN);						
-	
+
 			return $this->mapView->showMapView();
 
 		} else {

@@ -116,11 +116,6 @@ class LoginSignupView {
 		$this->message = '<p>' . $msg . '</p>';
 	}
 
-	public function userWantsToLoginSignup() {
-
-		return isset($_GET[self::$actionLoginSignupPage]);
-	}
-
 	public function showLoginSignupPage() {
 
 		$html = "<div class='top-content'>       	

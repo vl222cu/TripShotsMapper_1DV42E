@@ -2,6 +2,7 @@
 
 namespace model;
 
+require_once("./src/helper/SessionHandler.php");
 require_once("./src/model/LoginSignupRepository.php");
 
 class LoginSignupModel {
@@ -87,9 +88,21 @@ class LoginSignupModel {
 	}
 
 	public function logOut() {
+        
+        // Unset all session values 
+        $_SESSION = array();
+ 
+                // get session parameters 
+        $params = session_get_cookie_params();
+         
+        // Delete the actual cookie. 
+        setcookie(session_name(),
+                '', time() - 42000, 
+                $params["path"], 
+                $params["domain"], 
+                $params["secure"], 
+                $params["httponly"]);
 
-		unset($_SESSION[$this->loggedIn]);
-	  	unset($_SESSION[$this->userName]);
-	  	session_destroy();
+        session_destroy();
 	}
 }
