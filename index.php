@@ -11,3 +11,7 @@ $masterController->handleInput();
 $htmlBody = $masterController->generateOutput();
 $htmlView = new \view\HTMLView();
 $htmlView->showHTML("TripShotsMapper", $htmlBody); 
+/*
+$masterController = new \controller\MasterController();
+
+$masterController->doNavigate();*/

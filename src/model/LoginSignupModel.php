@@ -2,15 +2,15 @@
 
 namespace model;
 
-require_once("./src/model/LoginRepository.php");
+require_once("./src/model/LoginSignupRepository.php");
 
-class LoginModel {
+class LoginSignupModel {
 
 	private $userName;
     private $password;
     private $loggedIn;
     private $userAgent;
-    private $loginRepository;
+    private $loginSignupRepository;
     private static $HTTPUserAgent = 'HTTP_USER_AGENT';
 
     public function __construct() {
@@ -19,13 +19,13 @@ class LoginModel {
         $this->password = null;
         $this->loggedIn = false;
         $this->userAgent = null;
-        $this->loginRepository = new LoginRepository();
+        $this->loginSignupRepository = new LoginSignupRepository();
 
     }
     
     public function authenticateUser($userName, $password) {
 
-        $user = $this->loginRepository->getUserCredentialsFromDB($userName, $password);
+        $user = $this->loginSignupRepository->getUserCredentialsFromDB($userName, $password);
 
         if ($user) {
  
@@ -39,7 +39,7 @@ class LoginModel {
 
     public function authenticateUserSignUp($userName, $password) {
 
-        $newUser = $this->loginRepository->setUserCredentialsInDB($userName, $password);
+        $newUser = $this->loginSignupRepository->setUserCredentialsInDB($userName, $password);
 
         if ($newUser) {
  

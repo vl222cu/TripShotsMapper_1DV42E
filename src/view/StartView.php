@@ -18,7 +18,7 @@ class StartView {
                             </div>
                         	<div class='collapse navbar-collapse' id='myNavBar'>
                             	<ul class='nav navbar-nav navbar-right'>
-                                	<li><a href='?loginpage'><span class='glyphicon glyphicon-log-in'></span> Login | <span class='glyphicon glyphicon-user'></span> Sign up</a></li>
+                                	<li><a href='?loginsignuppage'><span class='glyphicon glyphicon-log-in'></span> Login | <span class='glyphicon glyphicon-user'></span> Sign up</a></li>
                             	</ul>
                         	</div>
                        	</div>

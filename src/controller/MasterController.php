@@ -2,29 +2,17 @@
 
 namespace controller;
 
-require_once("./src/model/LoginModel.php");
-require_once("./src/controller/LoginController.php");
+require_once("./src/controller/LoginSignupController.php");
 
 class MasterController {
 
-	private $loginModel;
 	private $view;
-
-	public function __construct() {
-
-		$this->loginModel = new \model\LoginModel();
-	}
 
 	public function handleInput() {
 
-		if ($this->loginModel->UserIsLoggedIn()) {
-			
-			$this->view = new \view\MapView();
-		} else {
-			$user = new \controller\LoginController();
+		$user = new \controller\LoginSignupController();
 
-			$this->view = $user->doLogin(); 
-		}
+		$this->view = $user->doLoginSignup(); 
 	}
 
 	public function generateOutput() {

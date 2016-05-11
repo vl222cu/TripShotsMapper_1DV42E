@@ -4,7 +4,7 @@ namespace model;
 
 require_once("./src/model/Repository.php");
 
-class LoginRepository extends base\Repository {
+class LoginSignupRepository extends base\Repository {
 
     private static $userID = 'userID';
 	private static $userName = 'username';

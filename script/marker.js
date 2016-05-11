@@ -19,7 +19,7 @@ function initialize () {
         placeMarker(event.latLng);
     });
 
-    $.get("./helper/AjaxHandler.php?action=markers", function (data) {
+    $.get("src/helper/AjaxHandler.php?action=markers", function (data) {
         console.log(data);
              $(data).find("marker").each(function () {
                   //Get user input values for the marker from database
