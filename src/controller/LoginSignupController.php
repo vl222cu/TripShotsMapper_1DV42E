@@ -3,30 +3,33 @@
 namespace controller;
 
 require_once("./src/model/LoginSignupModel.php");
-require_once("./src/model/MarkerRepository.php");
+require_once("./src/model/MapModel.php");
 require_once("./src/model/LoginSignupRepository.php");
 require_once("./src/view/LoginSignupView.php");
 require_once("./src/view/StartView.php");
 require_once("./src/view/MapView.php");
+require_once("./src/model/MapRepository.php");
 
 class LoginSignupController {
 
 	private $loginSignupModel;
-	private $markerModel;
+	private $mapModel;
 	private $loginSignupRepository;
 	private $loginSignupView;
 	private $startView;
 	private $mapView;
+	private $mapRepository;
 	private $user;
 
 	public function __construct() {
 
 		$this->loginSignupModel = new \model\LoginSignupModel();
-		$this->markerRepository = new \model\MarkerRepository();
+		$this->mapModel = new \model\MapModel();
 		$this->loginSignupRepository = new \model\LoginSignupRepository();
 		$this->loginSignupView = new \view\LoginSignupView($this->loginSignupModel);
 		$this->startView = new \view\StartView();
 		$this->mapView = new \view\MapView();
+		$this->mapRepository = new \model\MapRepository();
 		$this->user = null;
 	}
 
@@ -98,12 +101,14 @@ class LoginSignupController {
 		} elseif (($this->loginSignupView->getPostedUserName() && $this->loginSignupView->getPostedPassword()) !== null) {
 
 			$isUserLoginValid = $this->loginSignupModel->verifyUserPassword($this->loginSignupView->getPostedUserName(), $this->loginSignupView->getPostedPassword());
-			var_dump($isUserLoginValid);
+			
 			if($isUserLoginValid == true) {
 
 				$this->loginSignupModel->setSessionVariables($this->loginSignupView->getPostedUserName());
-				//	$this->markerRepository->getAllMarkersFromDB($this->loginRepository->getUserId($this->loginView->getPostedUserName()));
-				$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_SUCCESS_LOGIN);						
+
+				$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_SUCCESS_LOGIN);
+
+				$this->mapRepository->getAllMarkersFromDB($this->loginSignupRepository->getUserId($this->loginSignupView->getPostedUserName()));
 				
 				return $this->mapView->showMapView();
 

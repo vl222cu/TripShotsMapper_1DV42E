@@ -4,7 +4,7 @@ namespace model;
 
 require_once("./src/model/Repository.php");
 
-class MarkerRepository extends base\Repository {
+class MapRepository extends base\Repository {
 
 	private static $userID = "userID";
 
@@ -47,9 +47,9 @@ class MarkerRepository extends base\Repository {
 
                 $node = $dom->createElement("marker");
   				$newnode = $parnode->appendChild($node);
-  				$newnode->setAttribute("lat", $result['lat']);
-  				$newnode->setAttribute("lng", $result['lng']);
-  				$newnode->setAttribute("comment", $result['comment']);
+  				$newnode->setAttribute("lat", utf8_encode($result['lat']));
+  				$newnode->setAttribute("lng", utf8_encode($result['lng']));
+  				$newnode->setAttribute("comment", utf8_encode($result['comment']));
             }
 
 			/**
@@ -57,9 +57,11 @@ class MarkerRepository extends base\Repository {
 		 	*/
 			$this->db = null;
 
-			$xmlfile = $dom->saveXML();
+/*			$xmlfile = $dom->saveXML();
 			
-			echo $xmlfile;
+			echo $xmlfile; */
+
+			file_put_contents('./src/helper/markers.xml',$dom->saveXML());
         } 
 
         return false;

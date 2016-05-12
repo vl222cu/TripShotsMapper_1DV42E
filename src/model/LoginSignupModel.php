@@ -21,7 +21,7 @@ class LoginSignupModel {
         $this->password = null;
         $this->loggedIn = false;
         $this->userAgent = null;
-        $this->loginSignupRepository = new LoginSignupRepository();
+        $this->loginSignupRepository = new \model\LoginSignupRepository();
 
     }
     

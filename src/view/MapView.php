@@ -31,4 +31,11 @@ class MapView {
 
 		return $html;
 	}
+
+	public function fetchAction($name) {
+
+        $val = isset($_POST[$name]) ? $_POST[$name] : "";
+
+        return strip_tags(trim($val));
+    }
 }

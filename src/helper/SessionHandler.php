@@ -1,5 +1,5 @@
 <?php
-include_once("./includes/Settings.php");
+include_once("C:/TripShotsMapper_1DV42E/includes/Settings.php");
 /**
 * Source: http://www.wikihow.com/Create-a-Secure-Login-Script-in-PHP-and-MySQL
 */
