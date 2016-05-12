@@ -1,6 +1,9 @@
 "use strict";
+
 var google,
 map,
+xmlUrl,
+markers,
 $;
 
 // Source: https://developers.google.com/maps/documentation/javascript/tutorial
@@ -19,7 +22,10 @@ function initialize () {
         placeMarker(event.latLng);
     });
 
-    $.get("src/helper/AjaxHandler.php?action=markers", function (data) {
+    xmlUrl = "src/helper/AjaxHandler.php?action=markers";
+
+    loadMarkers();
+/*    $.get("src/helper/AjaxHandler.php?action=markers", function (data) {
         console.log(data);
              $(data).find("marker").each(function () {
                   //Get user input values for the marker from database
@@ -31,9 +37,22 @@ function initialize () {
                    placeMarker(point, html);
  
              });
-         }); 
+         }); */
 }
-    
+
+function loadMarkers() {
+    downloadUrl(xmlUrl, function(data) {
+        var xml = data.responseXML;
+        markers = xml.documentElement.getElementsByTagName("marker");
+        for (var i = 0; i < markers.length; i++) {
+            var point = new google.maps.LatLng(
+                parseFloat(markers[i].getAttribute("lat")),
+                parseFloat(markers[i].getAttribute("lng")));
+            var html = markers[i].getAttribute("comment");
+            placeMarker(point, html);
+        }
+    });
+} 
 // Source: https://developers.google.com/maps/documentation/javascript/events
 // Creates marker and comment box
 function placeMarker (location, html) {
@@ -99,8 +118,23 @@ function placeMarker (location, html) {
         } 
     }); 
 }
+
+function downloadUrl(url,callback) {
+    var request = window.ActiveXObject ?
+         new ActiveXObject('Microsoft.XMLHTTP') :
+         new XMLHttpRequest;
+     
+    request.onreadystatechange = function() {
+        if (request.readyState == 4) {
+            //request.onreadystatechange = doNothing;
+            callback(request, request.status);
+        }
+    };
+     
+    request.open('GET', url, true);
+    request.send(null);
+}
         
 google.maps.event.addDomListener(window, 'load', initialize);
-
 
 
