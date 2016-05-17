@@ -1,12 +1,21 @@
 <?php
 
 namespace model;
+/*
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: true ");
+header("Access-Control-Allow-Methods: OPTIONS, GET, POST");
+header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Size, 
+    X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");*/
 
-require_once("./src/model/Repository.php");
+require_once("C:TripShotsMapper_1DV42E/src/model/Repository.php");
 
 class MapRepository extends base\Repository {
 
-	private static $userID = "userID";
+	private static $userID = 'userID';
+	private static $latitude = 'lat';
+	private static $longitude = 'lng';
+	private static $comment = 'comment';
 
 	public function __construct() {
 
@@ -61,7 +70,23 @@ class MapRepository extends base\Repository {
 			
 			echo $xmlfile; */
 
-			file_put_contents('./src/helper/markers.xml',$dom->saveXML());
+			file_put_contents('./src/helper/getMarkers.xml',$dom->saveXML());
+        } 
+
+        return false;
+	}
+
+	public function saveAllMarkersToDB($user, $lat, $lng, $comment) {
+
+		$db = $this->connection();
+
+		$sql = " INSERT INTO $this->dbTable" . "(" . self::$userID . "," . self::$latitude . "," . self::$longitude . "," . self::$comment . ")" . " VALUES (?, ?)";
+        $query = $this->db->prepare($sql);
+        $query->execute(array($user, $lat, $lng, $comment));
+
+        if ($query->rowCount() > 0) {
+
+            return true;
         } 
 
         return false;

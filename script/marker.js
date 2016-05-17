@@ -2,6 +2,7 @@
 
 var google,
 map,
+marker,
 xmlUrl,
 markers,
 $;
@@ -22,26 +23,12 @@ function initialize () {
         placeMarker(event.latLng);
     });
 
-    xmlUrl = "src/helper/AjaxHandler.php?action=markers";
-
     loadMarkers();
-/*    $.get("src/helper/AjaxHandler.php?action=markers", function (data) {
-        console.log(data);
-             $(data).find("marker").each(function () {
-                  //Get user input values for the marker from database
-                 var point     = {lat: parseFloat($(this).attr('lat')), lng: parseFloat($(this).attr('lng'))};
-                 var html      = $(this).attr('comment');
-                   //call placeMarker() function for xml loaded marker
-                   console.log(html);
-                   console.log(point);
-                   placeMarker(point, html);
- 
-             });
-         }); */
 }
 
 function loadMarkers() {
-    downloadUrl(xmlUrl, function(data) {
+    downloadUrl("src/helper/AjaxHandler.php?action=get", function(data) {
+        console.log(data);
         var xml = data.responseXML;
         markers = xml.documentElement.getElementsByTagName("marker");
         for (var i = 0; i < markers.length; i++) {
@@ -56,7 +43,7 @@ function loadMarkers() {
 // Source: https://developers.google.com/maps/documentation/javascript/events
 // Creates marker and comment box
 function placeMarker (location, html) {
-    var marker = new google.maps.Marker({
+     marker = new google.maps.Marker({
         position : location,
         map : map,
         draggable: true,
@@ -76,11 +63,19 @@ function placeMarker (location, html) {
     var editBtn = document.createElement("button");
     editBtn.id = "editBtn";
     editBtn.innerText = "Edit comment";
+    var saveBtn = document.createElement("button");
+    saveBtn.id = "saveBtn";
+    saveBtn.innerText = "Save this marker";
+    var deleteBtn = document.createElement("button");
+    deleteBtn.id = "editBtn";
+    deleteBtn.innerText = "Delete this marker";
     var container = document.createElement("div");
     container.id = "infocontainer";
     container.appendChild(htmlBox);
     container.appendChild(textBox);
     container.appendChild(editBtn);
+    container.appendChild(saveBtn);
+    container.appendChild(deleteBtn);
     
     var infoWin = new google.maps.InfoWindow({
         content : container
@@ -88,7 +83,7 @@ function placeMarker (location, html) {
     
     // Opens comment box on click 
     google.maps.event.addListener(marker, 'click', function () {
-        infoWin.open(map, marker);
+        infoWin.open(map, this);
     });
     
     // Changes status on the comment box button to edit on click 
@@ -117,7 +112,26 @@ function placeMarker (location, html) {
             marker.setMap(null);
         } 
     }); 
+
+    google.maps.event.addDomListener(saveBtn, "click", function() {
+        saveMarker();
+    });
 }
+
+function saveMarker() {
+    var comment = escape(document.getElementById("textbox").value);
+    var lat = marker.getPosition().lat();
+    var lng = marker.getPosition().lng();
+    var url = "./src/helper/AjaxHandler.php?action=add&lat=" + lat + "&lng=" + lng + "&comment=" + comment;
+    console.log(url);
+      downloadUrl(url, function(data, responseCode) {
+        console.log(data);
+        if (responseCode == 200 && data.length >= 1) {
+          infowindow.close();
+          console.log("yes!");
+        }
+      });
+    }
 
 function downloadUrl(url,callback) {
     var request = window.ActiveXObject ?

@@ -1,4 +1,8 @@
 <?php
+/*
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST');
+header("Access-Control-Allow-Headers: X-Requested-With");*/
 
 require_once("src/helper/SessionHandler.php");
 require_once("src/controller/MasterController.php");

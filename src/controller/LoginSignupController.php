@@ -1,6 +1,12 @@
 <?php
 
 namespace controller;
+/*
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: true ");
+header("Access-Control-Allow-Methods: OPTIONS, GET, POST");
+header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Size, 
+    X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");*/
 
 require_once("./src/model/LoginSignupModel.php");
 require_once("./src/model/MapModel.php");
@@ -9,6 +15,7 @@ require_once("./src/view/LoginSignupView.php");
 require_once("./src/view/StartView.php");
 require_once("./src/view/MapView.php");
 require_once("./src/model/MapRepository.php");
+require_once("./src/controller/MapController.php"); 
 
 class LoginSignupController {
 
@@ -30,6 +37,7 @@ class LoginSignupController {
 		$this->startView = new \view\StartView();
 		$this->mapView = new \view\MapView();
 		$this->mapRepository = new \model\MapRepository();
+		$this->mapController = new \controller\MapController();
 		$this->user = null;
 	}
 
@@ -59,7 +67,7 @@ class LoginSignupController {
 
 				case \view\LoginSignupView::$actionLogout:
 					return $this->logoutUser();
-					break;
+					break; 
 
 				default: 
 					return $this->startView->showStartView();
@@ -109,12 +117,12 @@ class LoginSignupController {
 				$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_SUCCESS_LOGIN);
 
 				$this->mapRepository->getAllMarkersFromDB($this->loginSignupRepository->getUserId($this->loginSignupView->getPostedUserName()));
-				
+
 				return $this->mapView->showMapView();
 
 			} else {
 
-	            $this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_ERROR_USERNAME_PASSWORD);
+	     	    $this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_ERROR_USERNAME_PASSWORD);
 
 	            return $this->loginSignupView->showLoginSignupPage();				
 	        }
@@ -158,11 +166,13 @@ class LoginSignupController {
 			if ($isUserRegistrationValid == true) {
 
 				$this->loginSignupView->setMessage(\view\LoginSignupView::MESSAGE_SUCCESS_SIGNUP);	
+	
                 return $this->mapView->showMapView();
 
             } else {
 
             	$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_ERROR_USERNAME_ALREADY_EXISTS);
+
             	return $this->loginSignupView->showLoginSignupPage();	
             }
 		} 

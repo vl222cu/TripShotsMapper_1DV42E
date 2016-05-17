@@ -1,6 +1,12 @@
 <?php
 
 namespace model;
+/*
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: true ");
+header("Access-Control-Allow-Methods: OPTIONS, GET, POST");
+header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Size, 
+    X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");*/
 
 require_once("./src/helper/SessionHandler.php");
 require_once("./library/password_compat-master/lib/password.php");
@@ -8,19 +14,18 @@ require_once("./src/model/LoginSignupRepository.php");
 
 class LoginSignupModel {
 
-	private $userName;
-    private $password;
-    private $loggedIn;
-    private $userAgent;
-    private $loginSignupRepository;
+	private static $userName = 'username';
+    private static $password = 'password';
+    private static $userAgent = 'userAgent';
     private static $HTTPUserAgent = 'HTTP_USER_AGENT';
+    private static $path = 'path';
+    private static $domain = 'domain';
+    private static $secure = 'secure';
+    private static $httponly = 'httponly';
+    private $loginSignupRepository;
 
     public function __construct() {
 
-        $this->userName = null;
-        $this->password = null;
-        $this->loggedIn = false;
-        $this->userAgent = null;
         $this->loginSignupRepository = new \model\LoginSignupRepository();
 
     }
@@ -55,22 +60,21 @@ class LoginSignupModel {
 
    	public function setSessionVariables($userName) {
 
-		$_SESSION[$this->loggedIn] = true;
-        $_SESSION[$this->userName] = $userName;
-        $_SESSION[$this->userAgent] = $_SERVER[self::$HTTPUserAgent];
+        $_SESSION[self::$userName] = $userName;
+        $_SESSION[self::$userAgent] = $_SERVER[self::$HTTPUserAgent];
     }
 
     public function getSessionUsername() {
 
-        if(isset($_SESSION[$this->userName])) {
+        if(isset($_SESSION[self::$userName])) {
 
-            return $_SESSION[$this->userName];
+            return $_SESSION[self::$userName];
         }
     }
 
     public function userIsLoggedIn() {
 
-		if (isset($_SESSION[$this->loggedIn]) && $_SESSION[$this->loggedIn]) {
+		if (isset($_SESSION[self::$userName]) && $_SESSION[self::$userName]) {
 
 			return true;		
 		}
@@ -80,7 +84,7 @@ class LoginSignupModel {
 
 	public function getSessionControl() {
 
-		if ($_SESSION[$this->userAgent] === $_SERVER[self::$HTTPUserAgent]) {
+		if ($_SESSION[self::$userAgent] === $_SERVER[self::$HTTPUserAgent]) {
 
 			return true;
 		}
@@ -99,12 +103,13 @@ class LoginSignupModel {
         // Delete the actual cookie. 
         setcookie(session_name(),
                 '', time() - 42000, 
-                $params["path"], 
-                $params["domain"], 
-                $params["secure"], 
-                $params["httponly"]);
+                $params[self::$path], 
+                $params[self::$domain], 
+                $params[self::$secure], 
+                $params[self::$httponly]);
 
         session_destroy();
+        file_put_contents("./src/helper/getMarkers.xml", "");
 	}
 
     public function setPasswordhash($password) {

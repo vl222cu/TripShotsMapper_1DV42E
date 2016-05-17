@@ -1,9 +1,18 @@
 <?php
 
 namespace view;
+/*
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: true ");
+header("Access-Control-Allow-Methods: OPTIONS, GET, POST");
+header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Size, 
+    X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");*/
 
 class MapView {
 
+	private static $lat = 'lat';
+	private static $lng = 'lng';
+	private static $comment = 'comment';
 	public function showMapView() {
 
 		$html = "	
@@ -32,10 +41,12 @@ class MapView {
 		return $html;
 	}
 
-	public function fetchAction($name) {
+	public function getMarkerLatitude() {
 
-        $val = isset($_POST[$name]) ? $_POST[$name] : "";
-
-        return strip_tags(trim($val));
-    }
+		if(isset($_POST[self::$lat]))
+		{
+			return trim($_POST[self::$name]);
+		}
+		return "";
+	}
 }

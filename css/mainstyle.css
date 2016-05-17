@@ -259,7 +259,9 @@ button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; col
 	box-sizing: border-box;
 }
 
-#editBtn {
+#editBtn,
+#saveBtn,
+#deleteBtn {
     margin-top: 10px;
     margin-right: 5px;
     margin-bottom: 10px;
@@ -283,3 +285,4 @@ button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; col
 #imgWrapper {
     margin-top: 200px;
     margin-left: 400px;
+}
