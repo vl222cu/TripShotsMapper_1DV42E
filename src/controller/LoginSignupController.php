@@ -1,12 +1,6 @@
 <?php
 
 namespace controller;
-/*
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Credentials: true ");
-header("Access-Control-Allow-Methods: OPTIONS, GET, POST");
-header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Size, 
-    X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");*/
 
 require_once("./src/model/LoginSignupModel.php");
 require_once("./src/model/MapModel.php");
@@ -109,14 +103,14 @@ class LoginSignupController {
 		} elseif (($this->loginSignupView->getPostedUserName() && $this->loginSignupView->getPostedPassword()) !== null) {
 
 			$isUserLoginValid = $this->loginSignupModel->verifyUserPassword($this->loginSignupView->getPostedUserName(), $this->loginSignupView->getPostedPassword());
-			
+
 			if($isUserLoginValid == true) {
 
 				$this->loginSignupModel->setSessionVariables($this->loginSignupView->getPostedUserName());
 
 				$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_SUCCESS_LOGIN);
 
-				$this->mapRepository->getAllMarkersFromDB($this->loginSignupRepository->getUserId($this->loginSignupView->getPostedUserName()));
+//				$this->mapRepository->getAllMarkersFromDB($this->loginSignupRepository->getUserId($this->loginSignupView->getPostedUserName()));
 
 				return $this->mapView->showMapView();
 

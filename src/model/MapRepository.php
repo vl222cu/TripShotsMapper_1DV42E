@@ -1,14 +1,8 @@
 <?php
 
 namespace model;
-/*
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Credentials: true ");
-header("Access-Control-Allow-Methods: OPTIONS, GET, POST");
-header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Size, 
-    X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");*/
 
-require_once("C:TripShotsMapper_1DV42E/src/model/Repository.php");
+require_once("./src/model/Repository.php");
 
 class MapRepository extends base\Repository {
 
@@ -37,21 +31,8 @@ class MapRepository extends base\Repository {
     	
     	if($query->rowCount() > 0) {
 
-    	//	header("Content-type: text/xml");
-
-    		// Iterate through the rows, adding XML nodes for each
-    	/*    while ($row = $query->fetch(\PDO::FETCH_ASSOC)) {
-    	    	var_dump($row);
-				// ADD TO XML DOCUMENT NODE
-  				$node = $dom->createElement("marker");
-  				$newnode = $parnode->appendChild($node);
-  				$newnode->setAttribute("lat", $row['lat']);
-  				$newMarker->setAttribute("lng", $row['lng']);
-  				$newMarker->setAttribute("comment", $row['comment']);
-			}*/
-
 			 $results = $query->fetchAll(\PDO::FETCH_ASSOC);
-
+			 // Add to xml dockument node
 			 foreach ($results as $result) {
 
                 $node = $dom->createElement("marker");
@@ -66,22 +47,20 @@ class MapRepository extends base\Repository {
 		 	*/
 			$this->db = null;
 
-/*			$xmlfile = $dom->saveXML();
+			$xmlfile = $dom->saveXML();
 			
-			echo $xmlfile; */
-
-			file_put_contents('./src/helper/getMarkers.xml',$dom->saveXML());
+			echo $xmlfile; 
         } 
 
         return false;
 	}
 
-	public function saveAllMarkersToDB($user, $lat, $lng, $comment) {
+	public function saveUserMarkerToDB($user, $lat, $lng, $comment) {
 
 		$db = $this->connection();
 
-		$sql = " INSERT INTO $this->dbTable" . "(" . self::$userID . "," . self::$latitude . "," . self::$longitude . "," . self::$comment . ")" . " VALUES (?, ?)";
-        $query = $this->db->prepare($sql);
+		$sql = " INSERT INTO $this->dbTable" . "(" . self::$userID . "," . self::$latitude . "," . self::$longitude . "," . self::$comment . ")" . " VALUES (?, ?, ?, ?)";
+        $query = $db->prepare($sql);
         $query->execute(array($user, $lat, $lng, $comment));
 
         if ($query->rowCount() > 0) {

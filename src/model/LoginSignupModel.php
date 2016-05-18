@@ -1,12 +1,6 @@
 <?php
 
 namespace model;
-/*
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Credentials: true ");
-header("Access-Control-Allow-Methods: OPTIONS, GET, POST");
-header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Size, 
-    X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");*/
 
 require_once("./src/helper/SessionHandler.php");
 require_once("./library/password_compat-master/lib/password.php");
@@ -109,7 +103,7 @@ class LoginSignupModel {
                 $params[self::$httponly]);
 
         session_destroy();
-        file_put_contents("./src/helper/getMarkers.xml", "");
+//        file_put_contents("./src/helper/getMarkers.xml", "");
 	}
 
     public function setPasswordhash($password) {

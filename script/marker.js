@@ -27,8 +27,7 @@ function initialize () {
 }
 
 function loadMarkers() {
-    downloadUrl("src/helper/AjaxHandler.php?action=get", function(data) {
-        console.log(data);
+    downloadUrl("AjaxHandler.php?action=get", function(data) {
         var xml = data.responseXML;
         markers = xml.documentElement.getElementsByTagName("marker");
         for (var i = 0; i < markers.length; i++) {
@@ -122,7 +121,7 @@ function saveMarker() {
     var comment = escape(document.getElementById("textbox").value);
     var lat = marker.getPosition().lat();
     var lng = marker.getPosition().lng();
-    var url = "./src/helper/AjaxHandler.php?action=add&lat=" + lat + "&lng=" + lng + "&comment=" + comment;
+    var url = "AjaxHandler.php?action=add&lat=" + lat + "&lng=" + lng + "&comment=" + comment;
     console.log(url);
       downloadUrl(url, function(data, responseCode) {
         console.log(data);
@@ -144,7 +143,7 @@ function downloadUrl(url,callback) {
             callback(request, request.status);
         }
     };
-     
+    request.responseType = "document";
     request.open('GET', url, true);
     request.send(null);
 }
