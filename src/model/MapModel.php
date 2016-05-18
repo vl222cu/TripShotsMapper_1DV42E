@@ -9,23 +9,11 @@ class MapModel {
 
     private $mapRepository;
     private $loginSignupRepository;
-/*    private static $mode = 'mode';
-    private static $get = 'get'; */
 
     public function __construct() {
 
         $this->mapRepository = new \model\MapRepository();
         $this->loginSignupRepository = new \model\LoginSignupRepository();
-
-
-/*        $actionMode = $this->fetch(self::$mode);
-
-        switch($actionMode) {
-
-            case self::$get:
-                $this->getMarkersByUser();
-                break;
-        } */
     }
 
     public function getMarkersByUser($user) {

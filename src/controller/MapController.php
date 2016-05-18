@@ -40,7 +40,6 @@ class MapController {
 
         $userId = $this->loginSignupRepository->getUserId($postedUserName);
   
-//    	$xmlMarkers = $this->mapRepository->getAllMarkersFromDB($userId);
         $xmlMarkers = $this->mapModel->getMarkersByUser($userId);
 
     	return $xmlMarkers; 
