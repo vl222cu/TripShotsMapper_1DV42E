@@ -10,6 +10,9 @@ class MapRepository extends base\Repository {
 	private static $latitude = 'lat';
 	private static $longitude = 'lng';
 	private static $comment = 'comment';
+	private static $marker = 'marker';
+	private static $markers = 'markers';
+	private static $markerId = 'markerID';
 
 	public function __construct() {
 
@@ -22,7 +25,7 @@ class MapRepository extends base\Repository {
 
 		// Start XML file, create parent node
 		$dom = new \DOMDocument("1.0");
-		$node = $dom->createElement("markers");
+		$node = $dom->createElement(self::$markers);
 		$parnode = $dom->appendChild($node);
 
 		$sql = " SELECT * FROM $this->dbTable WHERE " . self::$userID . " = ?";
@@ -35,11 +38,11 @@ class MapRepository extends base\Repository {
 			 // Add to xml dockument node
 			 foreach ($results as $result) {
 
-                $node = $dom->createElement("marker");
+                $node = $dom->createElement(self::$marker);
   				$newnode = $parnode->appendChild($node);
-  				$newnode->setAttribute("lat", utf8_encode($result['lat']));
-  				$newnode->setAttribute("lng", utf8_encode($result['lng']));
-  				$newnode->setAttribute("comment", utf8_encode($result['comment']));
+  				$newnode->setAttribute(self::$latitude, utf8_encode($result[self::$latitude]));
+  				$newnode->setAttribute(self::$longitude, utf8_encode($result[self::$longitude]));
+  				$newnode->setAttribute(self::$comment, utf8_encode($result[self::$comment]));
             }
 
 			/**
@@ -70,4 +73,38 @@ class MapRepository extends base\Repository {
 
         return false;
 	}
+
+	public function deleteUserMarkerFromDB($marker) {
+
+		$db = $this->connection();
+
+		$sql = "DELETE FROM $this->dbTable WHERE " . self::$markerId . " = ?";
+        $query = $db->prepare($sql);
+        $query->execute(array($marker)); 
+
+        if ($query->rowCount() > 0) {
+
+            return true;
+        } 
+        var_dump("not working at all!");
+        return false;
+	}
+
+	public function getMarkerIdFromDB($user, $lat, $lng) {
+
+        $db = $this->connection();
+
+       $sql = " SELECT " . self::$markerId . " FROM $this->dbTable WHERE " . self::$userID . " = ? AND " . self::$latitude . " = ? AND " . self::$longitude . " = ?";
+        $query = $db->prepare($sql);
+       	$query->execute(array($user, $lat, $lng)); 
+
+        $result = $query->fetch(\PDO::FETCH_ASSOC);
+        var_dump($result);
+        if(!$result) {
+
+            return false;
+        }
+
+        return $result[self::$markerId];       
+    }
 }

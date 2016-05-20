@@ -1,13 +1,13 @@
 <?php
 
 namespace view;
-    X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");*/
 
 class MapView {
 
 	private static $lat = 'lat';
 	private static $lng = 'lng';
 	private static $comment = 'comment';
+
 	public function showMapView() {
 
 		$html = "	

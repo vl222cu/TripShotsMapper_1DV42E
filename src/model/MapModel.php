@@ -3,7 +3,6 @@
 namespace model;
 
 require_once("./src/model/MapRepository.php");
-require_once("./src/model/LoginSignupRepository.php"); 
 
 class MapModel {
 
@@ -13,7 +12,6 @@ class MapModel {
     public function __construct() {
 
         $this->mapRepository = new \model\MapRepository();
-        $this->loginSignupRepository = new \model\LoginSignupRepository();
     }
 
     public function getMarkersByUser($user) {
@@ -24,6 +22,32 @@ class MapModel {
  
              return true;
        	}
+
+        return false;        
+    }
+
+    public function saveMarkerByUser($user, $lat, $lng, $comment) {
+
+        $savedMarker = $this->mapRepository->saveUserMarkerToDB($user, $lat, $lng, $comment);
+
+        if ($savedMarker) {
+ 
+             return true;
+        }
+
+        return false;        
+    }
+
+    public function deleteMarkerByUser($user, $lat, $lng) {
+
+        $markerId = $this->mapRepository->getMarkerIdFromDB($user, $lat, $lng);
+
+        $deletedMarker = $this->mapRepository->deleteUserMarkerFromDB($markerId);
+
+        if ($deletedMarker) {
+ 
+             return true;
+        }
 
         return false;        
     }

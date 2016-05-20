@@ -156,6 +156,10 @@ function placeMarker (location, html) {
     google.maps.event.addDomListener(saveBtn, "click", function() {
         saveMarker(marker, infoWin);
     });
+
+     google.maps.event.addDomListener(deleteBtn, "click", function() {
+        deleteMarker(marker);
+    });
 }
 
 function saveMarker(Marker, infoWin) {
@@ -165,33 +169,30 @@ function saveMarker(Marker, infoWin) {
     var lng = Marker.getPosition().lng();
     var url = "AjaxHandler.php?action=add&lat=" + lat + "&lng=" + lng + "&comment=" + comment;
 
-      downloadUrl(url, function(data) {
+    downloadUrl(url, function(data) {
         if (data.status == 200) {
             $( "#deleteBtn" ).show();
             $( "#editBtn" ).hide();
             $( "#saveBtn" ).hide();
             Marker.setDraggable(false);
             infoWin.close();
-            alert("yes!");
         }
-      });
-    }
+    });
+}
 
-    function deleteMarker(Marker) {
-    var comment = escape(document.getElementById("textbox").value);
-    var lat = Marker.getPosition().lat().toFixed(6);
-    var lng = Marker.getPosition().lng().toFixed(6);
-    var url = "AjaxHandler.php?action=delete&lat=" + lat + "&lng=" + lng + "&comment=" + comment;
-    console.log(lat);
-    console.log(lng);
-      downloadUrl(url, function(data, status) {
+function deleteMarker(Marker) {
+
+    var lat = Marker.getPosition().lat();
+    var lng = Marker.getPosition().lng();
+    var url = "AjaxHandler.php?action=delete&lat=" + lat + "&lng=" + lng;;
+
+    downloadUrl(url, function(data, status) {
         console.log(data);
         if (data.status == 200) {
-          Marker.setMap(null);
-          alert(data);
+            Marker.setMap(null);
         }
-      });
-    }
+    });
+}
 
 function downloadUrl(url, callback) {
     var request = window.ActiveXObject ?

@@ -52,7 +52,21 @@ class MapController {
 
         $userId = $this->loginSignupRepository->getUserId($postedUserName);
 
-        $this->mapRepository->saveUserMarkerToDB($userId, $lat, $lng, $comment);
+        $this->mapModel->saveMarkerByUser($userId, $lat, $lng, $comment);
+        
+    } 
+
+    public function deleteUserMarker($lat, $lng) {      
+
+        $postedUserName = $this->loginSignupModel->getSessionUsername();
+
+        $userId = $this->loginSignupRepository->getUserId($postedUserName);
+
+        $this->mapModel->deleteMarkerByUser($userId, $lat, $lng);
+
+/*        $markerId = $this->mapRepository->getMarkerId($userId, $lat, $lng);
+
+        $this->mapRepository->deleteUserMarkerFromDB($markerId);*/
         
     } 
 }
