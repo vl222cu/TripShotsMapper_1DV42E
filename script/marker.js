@@ -2,9 +2,9 @@
 
 var google,
 map,
-marker,
+//marker,
 xmlUrl,
-markers,
+//markers,
 $;
 
 // Source: https://developers.google.com/maps/documentation/javascript/tutorial
@@ -29,7 +29,7 @@ function initialize () {
 function loadMarkers() {
     downloadUrl("AjaxHandler.php?action=get", function(data) {
         var xml = data.responseXML;
-        markers = xml.documentElement.getElementsByTagName("marker");
+        var markers = xml.documentElement.getElementsByTagName("marker");
         for (var i = 0; i < markers.length; i++) {
             var point = new google.maps.LatLng(
                 parseFloat(markers[i].getAttribute("lat")),
@@ -41,7 +41,7 @@ function loadMarkers() {
 } 
 
 function createMarkers(location, html) {
-    marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
         position : location,
         map : map,
         draggable: false,
@@ -76,13 +76,13 @@ function createMarkers(location, html) {
 
 
     google.maps.event.addDomListener(deleteBtn, "click", function() {
-        deleteMarker();
+        deleteMarker(marker);
     });
 }
 // Source: https://developers.google.com/maps/documentation/javascript/events
 // Creates marker and comment box
 function placeMarker (location, html) {
-     marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
         position : location,
         map : map,
         draggable: true,
@@ -154,29 +154,46 @@ function placeMarker (location, html) {
     }); 
 
     google.maps.event.addDomListener(saveBtn, "click", function() {
-        editBtn.style.display = 'none';
-        saveBtn.style.display = 'none';
-        $( "#deleteBtn" ).show();
-        saveMarker();
+        saveMarker(marker, infoWin);
     });
 }
 
-function saveMarker() {
+function saveMarker(Marker, infoWin) {
+
     var comment = escape(document.getElementById("textbox").value);
-    var lat = marker.getPosition().lat();
-    var lng = marker.getPosition().lng();
+    var lat = Marker.getPosition().lat();
+    var lng = Marker.getPosition().lng();
     var url = "AjaxHandler.php?action=add&lat=" + lat + "&lng=" + lng + "&comment=" + comment;
 
-      downloadUrl(url, function(data, responseCode) {
-        console.log(data);
-        if (responseCode == 200 && data.length >= 1) {
-          infowindow.close();
-          console.log("yes!");
+      downloadUrl(url, function(data) {
+        if (data.status == 200) {
+            $( "#deleteBtn" ).show();
+            $( "#editBtn" ).hide();
+            $( "#saveBtn" ).hide();
+            Marker.setDraggable(false);
+            infoWin.close();
+            alert("yes!");
         }
       });
     }
 
-function downloadUrl(url,callback) {
+    function deleteMarker(Marker) {
+    var comment = escape(document.getElementById("textbox").value);
+    var lat = Marker.getPosition().lat().toFixed(6);
+    var lng = Marker.getPosition().lng().toFixed(6);
+    var url = "AjaxHandler.php?action=delete&lat=" + lat + "&lng=" + lng + "&comment=" + comment;
+    console.log(lat);
+    console.log(lng);
+      downloadUrl(url, function(data, status) {
+        console.log(data);
+        if (data.status == 200) {
+          Marker.setMap(null);
+          alert(data);
+        }
+      });
+    }
+
+function downloadUrl(url, callback) {
     var request = window.ActiveXObject ?
          new ActiveXObject('Microsoft.XMLHTTP') :
          new XMLHttpRequest;
