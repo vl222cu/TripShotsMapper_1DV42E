@@ -12,7 +12,7 @@ $;
 function initialize () {
     var mapOptions = {
         center: new google.maps.LatLng(59.999999, 14.999999),
-        zoom: 3
+        zoom: 2
     };
     
     map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -27,7 +27,8 @@ function initialize () {
 }
 
 function loadMarkers() {
-    downloadUrl("AjaxHandler.php?action=get", function(data) {
+    downloadUrl("ActionHandler.php?action=get", function(data) {
+        console.log(data);
         var xml = data.responseXML;
         var markers = xml.documentElement.getElementsByTagName("marker");
         for (var i = 0; i < markers.length; i++) {
@@ -35,12 +36,14 @@ function loadMarkers() {
                 parseFloat(markers[i].getAttribute("lat")),
                 parseFloat(markers[i].getAttribute("lng")));
             var html = markers[i].getAttribute("comment");
-            createMarkers(point, html);
+            var id = markers[i].getAttribute("markerID");
+            console.log(id);
+            createMarkers(point, html, id);
         }
     });
 } 
 
-function createMarkers(location, html) {
+function createMarkers(location, html, id) {
     var marker = new google.maps.Marker({
         position : location,
         map : map,
@@ -59,11 +62,15 @@ function createMarkers(location, html) {
     var deleteBtn = document.createElement("button");
     deleteBtn.id = "deleteBtn";
     deleteBtn.innerText = "Delete this marker";
+    var imgBtn = document.createElement("button");
+    imgBtn.id = "deleteBtn";
+    imgBtn.innerText = "Add picture";
     var container = document.createElement("div");
     container.id = "infocontainer";
     container.appendChild(htmlBox);
     container.appendChild(textBox);
     container.appendChild(deleteBtn);
+    container.appendChild(imgBtn);
 
     var infoWin = new google.maps.InfoWindow({
         content : container
@@ -77,6 +84,11 @@ function createMarkers(location, html) {
 
     google.maps.event.addDomListener(deleteBtn, "click", function() {
         deleteMarker(marker);
+    });
+
+    google.maps.event.addDomListener(imgBtn, "click", function() {
+        window.location.href = 'ActionHandler.php?action=img&id=' + id;
+//        window.open('ActionHandler.php?action=postImg&id=' + id);
     });
 }
 // Source: https://developers.google.com/maps/documentation/javascript/events
@@ -167,7 +179,7 @@ function saveMarker(Marker, infoWin) {
     var comment = escape(document.getElementById("textbox").value);
     var lat = Marker.getPosition().lat();
     var lng = Marker.getPosition().lng();
-    var url = "AjaxHandler.php?action=add&lat=" + lat + "&lng=" + lng + "&comment=" + comment;
+    var url = "ActionHandler.php?action=add&lat=" + lat + "&lng=" + lng + "&comment=" + comment;
 
     downloadUrl(url, function(data) {
         if (data.status == 200) {
@@ -184,7 +196,7 @@ function deleteMarker(Marker) {
 
     var lat = Marker.getPosition().lat();
     var lng = Marker.getPosition().lng();
-    var url = "AjaxHandler.php?action=delete&lat=" + lat + "&lng=" + lng;;
+    var url = "ActionHandler.php?action=delete&lat=" + lat + "&lng=" + lng;;
 
     downloadUrl(url, function(data, status) {
         console.log(data);

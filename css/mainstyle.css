@@ -73,6 +73,22 @@ div.loginmsg {
     margin-top: 20px;
 }
 
+div.mapmsg {
+    color: #4EB00E;
+    text-shadow: 2px 2px 0 #000;
+    font-size: 30px;
+    margin-top: 20px;
+}
+/*
+div.alert,
+div.alert-success,
+div.laert-info,
+div.alert-warning,
+div.alert-danger,
+div.close {
+    display: none;
+}
+*/
 .form-box {
 	margin-top: 70px;
 }
@@ -199,13 +215,39 @@ button.btn:focus { outline: 0; opacity: 0.6; color: #fff; }
 
 button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; color: #fff; }
 
+#infotext {
+    margin: auto;
+    color: gray;
+    position:relative;
+    padding:25px;
+    width: 940px;
+    background: #FFF;
+    font-size: 16px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
+    -moz-box-shadow:1px 1px 0 0 #FFF, 5px 5px 40px 2px #BBB inset;
+    -webkit-box-shadow: 1px 1px 0 0 #FFF, 5px 5px 40px 2px #BBB inset;
+    box-shadow: 1px 1px 0 0 #FFF, 5px 5px 40px 2px #BBB inset;
+}
+
+/*
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  text-align: center;
+}*/
 
 /* <-------map settings---------->*/
 
 #map-canvas {
-	height: 60%;
+	height: 55%;
     width: 60%;
-    margin: 150px auto;
+    display: block;
+    margin: 40px auto;
     background-color: #FFF;
     -moz-box-shadow: 0 0 5px 10px rgba(25,25,25,0.1);
     -webkit-box-shadow: 0 0 5px 10px rgba(25,25,25,0.1);
@@ -282,7 +324,3 @@ button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; col
 	background: linear-gradient(#263966 5%, #79bbff 100%);
 }
 
-#imgWrapper {
-    margin-top: 200px;
-    margin-left: 400px;
-}

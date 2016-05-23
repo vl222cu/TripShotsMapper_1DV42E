@@ -1,6 +1,7 @@
 <?php
 
 require_once("src/controller/MapController.php");
+require_once("src/controller/ImageController.php");
 require_once("src/helper/SessionHandler.php");
 
 sec_session_start();
@@ -31,6 +32,13 @@ if(isset($_GET['action'])) {
 
  	    	$mapController = new \controller\MapController();
  	     	echo $mapController->deleteUserMarker($lat, $lng);
+ 	      	exit;
+ 	    break;
+
+			$markerId = $_GET['id']; 
+
+ 	    	$imageController = new \controller\ImageController();
+ 	     	echo $imageController->doImage($markerId);
  	      	exit;
  	    break;
  	} 

@@ -40,6 +40,7 @@ class MapRepository extends base\Repository {
 
                 $node = $dom->createElement(self::$marker);
   				$newnode = $parnode->appendChild($node);
+  				$newnode->setAttribute(self::$markerId, utf8_encode($result[self::$markerId]));
   				$newnode->setAttribute(self::$latitude, utf8_encode($result[self::$latitude]));
   				$newnode->setAttribute(self::$longitude, utf8_encode($result[self::$longitude]));
   				$newnode->setAttribute(self::$comment, utf8_encode($result[self::$comment]));

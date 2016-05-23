@@ -6,6 +6,7 @@ require_once("src/model/mapModel.php");
 require_once("src/model/mapRepository.php");
 require_once("src/model/LoginSignupModel.php");
 require_once("src/view/LoginSignupView.php");
+require_once("src/view/mapView.php");
 require_once("src/model/LoginSignupRepository.php");
 
 class MapController {
@@ -14,6 +15,7 @@ class MapController {
 	private $loginSignupModel;
 	private $loginSignupView;
 	private $loginSignupRepository;
+    private $mapView;
 	private $mapRepository;
 
     public function __construct() {
@@ -22,6 +24,7 @@ class MapController {
     	$this->mapRepository = new \model\MapRepository();
     	$this->loginSignupModel = new \model\LoginSignupModel();
     	$this->loginSignupView = new \view\LoginSignupView($this->loginSignupModel);
+        $this->mapView = new \view\MapView();
         $this->loginSignupRepository = new \model\LoginSignupRepository();
 
 /*        $actionMode = $this->mapView->fetchAction(self::$mode);
@@ -39,10 +42,20 @@ class MapController {
         $postedUserName = $this->loginSignupModel->getSessionUsername();
 
         $userId = $this->loginSignupRepository->getUserId($postedUserName);
-  
+    
         $xmlMarkers = $this->mapModel->getMarkersByUser($userId);
 
-    	return $xmlMarkers; 
+        if ($xmlMarkers) {
+
+            var_dump($this->mapView->setMapMessage(\view\MapView::MESSAGE_SUCCSESS_GET_ALL_MARKERS));
+
+            return $xmlMarkers;
+
+        } else {
+
+            $this->mapView->setMapMessage(\view\MapView::MESSAGE_ERROR_GET_ALL_MARKERS);
+
+        }   	
     	
     } 
 
@@ -52,7 +65,14 @@ class MapController {
 
         $userId = $this->loginSignupRepository->getUserId($postedUserName);
 
-        $this->mapModel->saveMarkerByUser($userId, $lat, $lng, $comment);
+        if ($this->mapModel->saveMarkerByUser($userId, $lat, $lng, $comment)) {
+
+            $this->mapView->setMapMessage(\view\MapView::MESSAGE_SUCCSESS_SAVE_MARKER);
+
+        } else {
+
+            $this->mapView->setMapMessage(\view\MapView::MESSAGE_ERROR_SAVE_MARKER);
+        }
         
     } 
 
@@ -62,12 +82,18 @@ class MapController {
 
         $userId = $this->loginSignupRepository->getUserId($postedUserName);
 
-        $this->mapModel->deleteMarkerByUser($userId, $lat, $lng);
+        if ($this->mapModel->deleteMarkerByUser($userId, $lat, $lng)) {
+
+            $this->mapView->setMapMessage(\view\MapView::MESSAGE_SUCCSESS_DELETE_MARKER);
+
+        } else {
+
+            $this->mapView->setMapMessage(\view\MapView::MESSAGE_SUCCSESS_DELETE_MARKER);
+        }
 
 /*        $markerId = $this->mapRepository->getMarkerId($userId, $lat, $lng);
 
-        $this->mapRepository->deleteUserMarkerFromDB($markerId);*/
-        
+        $this->mapRepository->deleteUserMarkerFromDB($markerId);*/        
     } 
 }
 
