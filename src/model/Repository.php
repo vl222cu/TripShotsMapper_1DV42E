@@ -2,7 +2,7 @@
 
 namespace model\base;
 
-require_once("C:/TripShotsMapper_1DV42E/includes/Settings.php");
+require_once("./includes/Settings.php");
 
 abstract class Repository {
 

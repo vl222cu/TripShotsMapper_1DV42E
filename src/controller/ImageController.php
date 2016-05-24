@@ -5,30 +5,38 @@ namespace controller;
 require_once("./src/model/ImageModel.php");
 require_once("./src/model/ImageRepository.php");
 require_once("./src/view/ImageView.php");
+require_once("./src/view/MapView.php");
 
 class ImageController {
 
 	private $ImageModel;
 	private $imageRepository;
 	private $ImageView;
+	private $mapView;
 
 	public function __construct() {
 
 		$this->ImageModel = new \model\ImageModel();
 		$this->imageRepository = new \model\ImageRepository();
 		$this->imageView = new \view\ImageView($this->ImageModel);
+		$this->mapView = new \view\MapView();
+
 	}
 
 	public function doImage($marker) {
  
-/*		$userAction = $this->imageView->getAction();
+		$userAction = $this->imageView->getUserAction();
 
 		try {
 
 			switch ($userAction) {
 
-				case \view\PostView::actionUploadPage:
-					return $this->imageView->uploadPageHTML();;
+				case \view\ImageView::$actionReturn:
+					return $this->mapView->showMapView();
+					break;
+
+				case \view\ImageView::$actionUploadPage:
+					return $this->imageView->uploadImagePageHTML();
 					break;
 
 				default: 
@@ -39,9 +47,9 @@ class ImageController {
 
 			$e;
 			die(); 
-		} */
+		} 
 
-		return $this->showAllImages($marker);
+//		return $this->showAllImages($marker);
 	}
 
 	public function showAllImages($marker) {

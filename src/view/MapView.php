@@ -39,6 +39,8 @@ class MapView {
 	                    <div id='infotext'>Click on the map to add a new marker, drag and drop it wherever you like. If you want to remove a marker, just right-click on the marker. For editing, saving and deleting markers, just click on the marker. Enjoy!
 	                    </div>
                     </div>
+                    <div id='imgContainer'>
+                    </div>
         ";
 
         if($this->getMapMessage() !== null) {
@@ -47,8 +49,7 @@ class MapView {
 
 		};
 
-		$html .="	
-					<div id='map-canvas'></div>
+		$html .="	<div id='map-canvas'></div>
 					<script type='text/javascript'src='https://maps.googleapis.com/maps/api/js?key=AIzaSyABwLvv5aTCn-nOShcBUzDhUstxjRIR5gc'></script>
 					<script src='./script/marker.js'></script>
 		";

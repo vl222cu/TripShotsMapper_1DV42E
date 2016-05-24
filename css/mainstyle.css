@@ -6,6 +6,7 @@ html, body {
     background-size: cover;
     font-family: 'Happy Monkey', Arial, Verdana, sans-serif, cursive;
     height: 100%;
+    width: 100%;
 }
 
 h1 {
@@ -192,7 +193,7 @@ textarea::-webkit-input-placeholder, textarea.form-control::-webkit-input-placeh
 
 button.btn {
 	height: 50px;
-    margin: 0;
+    margin: auto;
     padding: 0 20px;
     vertical-align: middle;
     background: #90C75D;
@@ -244,8 +245,8 @@ button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; col
 /* <-------map settings---------->*/
 
 #map-canvas {
-	height: 55%;
-    width: 60%;
+	min-height: 500px;
+    width: 70%;
     display: block;
     margin: 40px auto;
     background-color: #FFF;
@@ -324,3 +325,131 @@ button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; col
 	background: linear-gradient(#263966 5%, #79bbff 100%);
 }
 
+#imgContent {
+    background: url(../pics/bg.jpg) repeat; 
+    opacity: 0.92;
+    filter: alpha(opacity=92); /* For IE8 and earlier */
+    margin: 100px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #888;
+    line-height: 30px;
+    text-align: center;
+}
+
+button.imgBtn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    vertical-align: middle;
+    background: #90C75D;
+    border: 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 50px;
+    color: #fff;
+}
+/* <-------new window settings---------->*/
+
+.newwindow {
+    position: absolute;
+    border-radius: 7px 7px 4px 4px;
+    box-shadow: 0 0 5px black;
+}
+
+.nwtitlebar {
+    background: #2F2F30;
+    border-radius: 7px 7px 0 0;
+    padding: 6px 5px 0 5px;
+    height: 50px;
+}
+
+.nwtitlename {
+    color: #FFF;
+    font-family: "tahoma", "verdana", "sans-serif";
+    font-size: 13px;
+    font-weight:bold;
+}
+
+.titleicon {
+    width: 25px;
+    height: 25px;
+    float: left;
+    margin-right: 5px;
+    background-size: 100% 100%;
+    
+}
+
+#closebutton {
+    width: 15px;
+    height: 15px;
+    float: right;
+    margin-top: 6px;
+    margin-right: 6px;
+}
+
+.nwcontent {
+    background: #CCC;
+    padding: 5px;
+    min-height: 250px;
+    max-height: 450px;
+    overflow: auto;
+}
+
+.nwfooter {
+    background: #2F2F30;
+    color: #FFF;
+    border-radius: 0 0 7px 7px;
+    height: 20px;
+    padding: 5px;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+.thumbdiv {
+    display: inline-block;
+    margin: 7px;
+    padding: 7px;
+    text-align: center;
+    border: solid 1px #EEE;  
+    background: -webkit-gradient(linear,
+        left bottom,
+        left top,
+        color-stop(0, rgb(134,135,140)),
+        color-stop(0.41, rgb(217,217,217)),
+        color-stop(1, rgb(134,135,140))
+    );
+    background: -webkit-linear-gradient(
+        center bottom,
+        color-stop(0, rgb(134,135,140)),
+        color-stop(0.41, rgb(217,217,217)),
+        color-stop(1, rgb(134,135,140))
+    );
+    background: -moz-linear-gradient(
+        center bottom,
+        rgb(134,135,140) 0%,
+        rgb(217,217,217) 41%,
+        rgb(134,135,140) 100%
+    );
+    background: -o-linear-gradient(
+        center bottom,
+        rgb(134,135,140) 0%,
+        rgb(217,217,217) 41%,
+        rgb(134,135,140) 100%
+    );
+    -moz-box-shadow: rgba(0,0,0, 0.3) 0 0 8px;  
+    -webkit-box-shadow: rgba(0,0,0, 0.3) 0 0 8px;
+    box-shadow: rgba(0,0,0, 0.3) 0 0 8px; 
+    -webkit-border-radius: 5px;  
+    -moz-border-radius: 5px;  
+    border-radius: 5px;
+}
+
+#ajaxloader {
+    display: none;
+}
+
+.thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }

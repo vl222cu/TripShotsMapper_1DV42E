@@ -64,7 +64,7 @@ function createMarkers(location, html, id) {
     deleteBtn.innerText = "Delete this marker";
     var imgBtn = document.createElement("button");
     imgBtn.id = "deleteBtn";
-    imgBtn.innerText = "Add picture";
+    imgBtn.innerText = "Add pictures";
     var container = document.createElement("div");
     container.id = "infocontainer";
     container.appendChild(htmlBox);
@@ -88,7 +88,6 @@ function createMarkers(location, html, id) {
 
     google.maps.event.addDomListener(imgBtn, "click", function() {
         window.location.href = 'ActionHandler.php?action=img&id=' + id;
-//        window.open('ActionHandler.php?action=postImg&id=' + id);
     });
 }
 // Source: https://developers.google.com/maps/documentation/javascript/events
