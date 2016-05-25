@@ -127,35 +127,35 @@ class LoginSignupController {
 
 	public function signUpNewUser() {
 
-		if ($this->loginSignupView->getPostedUserName() == "" && $this->loginSignupView->getPostedPassword() == "" && $this->loginSignupView->getConfirmedPassword() == "") {
+		if ($this->loginSignupView->getPostedSignupUserName() == "" && $this->loginSignupView->getPostedSignupPassword() == "" && $this->loginSignupView->getConfirmedPassword() == "") {
 
 			$this->loginSignupView->setMessage(\view\LoginSignupView::MESSAGE_ERROR_USERNAME_PASSWORD_MISSING);
 
-		} elseif ($this->loginSignupView->getPostedUserName() == "" || strlen($this->loginSignupView->getPostedUserName()) < 3) {
+		} elseif ($this->loginSignupView->getPostedSignupUserName() == "" || strlen($this->loginSignupView->getPostedSignupUserName()) < 3) {
 
 			$this->loginSignupView->setMessage(\view\LoginSignupView::MESSAGE_ERROR_USERNAME_TOO_SHORT);
 
-		} elseif ($this->loginSignupView->getPostedPassword() == "" || strlen($this->loginSignupView->getPostedPassword()) < 6) {
+		} elseif ($this->loginSignupView->getPostedSignupPassword() == "" || strlen($this->loginSignupView->getPostedSignupPassword()) < 6) {
 
 			$this->loginSignupView->setMessage(\view\LoginSignupView::MESSAGE_ERROR_PASSWORD_TOO_SHORT);
 
-		} elseif (preg_match('[\W]', $this->loginSignupView->getPostedUserName())) {
+		} elseif (preg_match('[\W]', $this->loginSignupView->getPostedSignupUserName())) {
 
 			$this->loginSignupView->setMessage(\view\LoginSignupView::MESSAGE_ERROR_USERNAME_INVALID_CHARACTERS);
 
-		} elseif (preg_match('[\W]', $this->loginSignupView->getPostedPassword())) {
+		} elseif (preg_match('[\W]', $this->loginSignupView->getPostedSignupPassword())) {
 
 			$this->loginSignupView->setMessage(\view\LoginSignupView::MESSAGE_ERROR_PASSWORD_INVALID_CHARACTERS);
 
-		} elseif ($this->loginSignupView->getPostedPassword() !== $this->loginSignupView->getConfirmedPassword()) {
+		} elseif ($this->loginSignupView->getPostedSignupPassword() !== $this->loginSignupView->getConfirmedPassword()) {
 
 			$this->loginSignupView->setMessage(\view\LoginSignupView::MESSAGE_ERROR_PASSWORD_NO_MATCH);
 
-		} elseif (($this->loginSignupView->getPostedUserName() && $this->loginSignupView->getPostedPassword() && $this->loginSignupView->getConfirmedPassword()) !== null) {
+		} elseif (($this->loginSignupView->getPostedSignupUserName() && $this->loginSignupView->getPostedSignupPassword() && $this->loginSignupView->getConfirmedPassword()) !== null) {
 
-			$hashedPassword = $this->loginSignupModel->setPasswordhash($this->loginSignupView->getPostedPassword());
+			$hashedPassword = $this->loginSignupModel->setPasswordhash($this->loginSignupView->getPostedSignupPassword());
 
-			$isUserRegistrationValid = $this->loginSignupModel->authenticateUserSignUp($this->loginSignupView->getPostedUserName(), $hashedPassword);
+			$isUserRegistrationValid = $this->loginSignupModel->authenticateUserSignUp($this->loginSignupView->getPostedSignupUserName(), $hashedPassword);
 
 			if ($isUserRegistrationValid == true) {
 

@@ -5,10 +5,13 @@ namespace view;
 class LoginSignupView {
 
 	private $loginSignupModel;
-	private $name;
+	private $loginName;
+	private $signupName;
 	private $message = "";
 	private static $userName = 'Username';
 	private static $password = 'Password';
+	private static $signupUserName = 'signupUsername';
+	private static $signupPassword = 'signupPassword';
 	private static $confirmedPassword = 'confirmedPassword';
 	public static $actionLoginSignupPage = 'loginsignuppage'; 
 	public static $actionLogin = 'login';
@@ -33,7 +36,8 @@ class LoginSignupView {
 	public function __construct(\model\LoginSignupModel $loginSignupModel) {
 		
 		$this->loginSignupModel = $loginSignupModel;
-		$this->name = isset($_POST[self::$userName]) ? $_POST[self::$userName] : '';
+		$this->loginName = isset($_POST[self::$userName]) ? $_POST[self::$userName] : '';
+		$this->signupName = isset($_POST[self::$signupUserName]) ? $_POST[self::$signupUserName] : '';
 
 	}
 
@@ -112,6 +116,31 @@ class LoginSignupView {
         }
    }
 
+   public function getPostedSignupUserName() {
+
+	 	if (empty($_POST[self::$signupUserName])) {
+
+	 		return "";
+
+	 	} else {
+
+       		return strip_tags($_POST[self::$signupUserName]);
+    	}
+    }
+
+    public function getPostedSignupPassword() {
+
+    	if (empty($_POST[self::$signupPassword])) {
+
+    		return "";
+
+    	} else {
+        
+        	return strip_tags($_POST[self::$signupPassword]);
+        }
+   }
+
+
     public function setMessage($msg) {
 
 		$this->message = '<p>' . $msg . '</p>';
@@ -148,7 +177,7 @@ class LoginSignupView {
 				                    <form role='form' name='login' action='?login' method='post' class='login-form' accept-charset='utf-8' >
 				                    	<div class='form-group'>
 				                    		<label class='sr-only' for='form-username'>Username</label>
-				                        	<input type='text' name='Username' placeholder='Username...' class='form-username form-control' id='form-username'>
+				                        	<input type='text' name='Username' placeholder='Username...' class='form-username form-control' id='form-username' value='$this->loginName'>
 				                        </div>
 				                        <div class='form-group'>
 				                        	<label class='sr-only' for='form-password'>Password</label>
@@ -178,11 +207,11 @@ class LoginSignupView {
 				                    <form role='form' name='signup' action='?signup' method='post' class='registration-form' accept-charset='utf-8'>
 				                    	<div class='form-group'>
 				                    		<label class='sr-only' for='form-username'>Username</label>
-				                        	<input type='text' name='Username' placeholder='Username...'  class='form-username form-control' id='form-username'>
+				                        	<input type='text' name='signupUsername' placeholder='Username...'  class='form-username form-control' id='form-username' value='$this->signupName'>
 				                        </div>
 				                         <div class='form-group'>
 				                        	<label class='sr-only' for='form-password'>Password</label>
-				                        	<input type='password' name='Password' placeholder='Password...' class='form-password form-control' id='form-password'>
+				                        	<input type='password' name='signupPassword' placeholder='Password...' class='form-password form-control' id='form-password'>
 				                        </div>
 				                        <div class='form-group'>
 				                        	<label class='sr-only' for='form-password'>Password</label>
