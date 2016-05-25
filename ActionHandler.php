@@ -1,10 +1,16 @@
 <?php
-
+/**
+ * @todo temporary solution with this file, want to find another way to solve
+ * the routing of actions
+ */
+require_once("src/controller/LoginSignupController.php");
 require_once("src/controller/MapController.php");
 require_once("src/controller/ImageController.php");
+require_once("src/model/Imagemodel.php");
 require_once("src/helper/SessionHandler.php");
 require_once("src/view/HTMLView.php");
 require_once("src/view/MapView.php");
+require_once("src/view/ImageView.php");
 
 sec_session_start();
 
@@ -36,21 +42,17 @@ if(isset($_GET['action'])) {
  	     	echo $mapController->deleteUserMarker($lat, $lng);
  	      	exit;
  	    break;
- 	    /**
- 		* @todo temporary solution, need to find a better solution
- 		*/
+
  	    case 'img':
 			$markerId = $_GET['id']; 
 
  	    	$imageController = new \controller\ImageController();
- 	    	$htmlBody = $imageController->doImage($markerId);
+ 	    	$htmlBody = $imageController->showAllImages($markerId);
  	    	$htmlView = new \view\HTMLView();
  	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);
  	      	exit;
  	    break;
- 	    /**
- 		* @todo temporary solution, need to find a better solution
- 		*/
+
  	    case 'return':
  	    	$mapView = new \view\MapView();
  	    	$htmlBody = $mapView->showMapView();
@@ -58,5 +60,36 @@ if(isset($_GET['action'])) {
  	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);
  	      	exit;
  	    break;
- 	} 
- }
+
+ 	     case 'logout':
+ 	    	$loginSignupController = new \controller\LoginSignupController();
+ 	    	$htmlBody = $loginSignupController->logoutUser();
+	    	$htmlView = new \view\HTMLView();
+ 	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);
+ 	      	exit;
+ 	    break;
+
+ 	    case 'addImg':
+ 	    	$imageController = new \controller\ImageController();
+ 	    	$imageModel = new \model\ImageModel();
+ 	    	$imageView = new \view\ImageView($imageModel);
+ 	    	$markerId = $imageView->getMarkerId();
+ 	    	$htmlBody = $imageController->showAddImagePage($markerId);
+ 	    	$htmlView = new \view\HTMLView();
+ 	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);
+ 	      	exit;
+ 	    break;
+
+ 	    case 'retImg':
+ 			$imageModel = new \model\ImageModel();
+ 	    	$imageView = new \view\ImageView($imageModel);
+ 	    	$markerId = $imageView->getMarkerId();
+ 	    	$imageController = new \controller\ImageController();
+ 	    	var_dump($markerId);
+ 	    	$htmlBody = $imageController->showAllImages($markerId);
+ 	    	$htmlView = new \view\HTMLView();
+ 	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);
+ 	      	exit;
+ 	    break;
+ 	}
+} 

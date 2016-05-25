@@ -23,39 +23,15 @@ class ImageController {
 
 	}
 
-	public function doImage($marker) {
- 
-		$userAction = $this->imageView->getUserAction();
-
-		try {
-
-			switch ($userAction) {
-
-				case \view\ImageView::$actionReturn:
-					return $this->mapView->showMapView();
-					break;
-
-				case \view\ImageView::$actionUploadPage:
-					return $this->imageView->uploadImagePageHTML();
-					break;
-
-				default: 
-					return $this->showAllImages($marker);
-			}
-
-		} catch (\Exception $e) {
-
-			$e;
-			die(); 
-		} 
-
-//		return $this->showAllImages($marker);
+	public function showAllImages($markerId) {
+		
+		$images = $this->imageRepository->getAllImagesFromDB($markerId);
+		
+		return $this->imageView->showAllImagesHTML($images, $markerId);	
 	}
 
-	public function showAllImages($marker) {
-		
-		$images = $this->imageRepository->getAllImagesFromDB($marker);
-
-		return $this->imageView->showAllImagesHTML($images);	
+	public function showAddImagePage($markerId) {
+		var_dump($markerId);
+		return $this->imageView->addImagePageHTML($markerId);	
 	}
 }

@@ -65,10 +65,10 @@ class LoginSignupView {
 				return $action;
 				break;
 
-			case self::$actionLogout:
+/*			case self::$actionLogout:
 				$action = self::$actionLogout;
 				return $action;
-				break; 
+				break; */
 
 			default:
 				$action = "";

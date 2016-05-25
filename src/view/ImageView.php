@@ -7,6 +7,8 @@ class ImageView {
 	private $imageModel;
 	public static $actionReturn = 'return';
 	public static $actionUploadPage = 'uploadpage';
+	private static $trackMarker = "trackMarker";
+
 
 	public function __construct(\model\ImageModel $imageModel) {
 
@@ -14,11 +16,11 @@ class ImageView {
 
 	}
 
-	public function showAllImagesHTML(array $dbImages) {
+	public function showAllImagesHTML(array $dbImages, $markerId) {
 
 		$html = "
 		 	<div class='container'>
-		 		<div id='imgContent'>
+		 		<div class='imgContent'>
 		 			<h2>Add pictures to your destination</h2>
 			 		<div id='contentwrapper'>";
 
@@ -29,7 +31,8 @@ class ImageView {
 
 		$html .= "
 			<p><a href='ActionHandler.php?action=return'>Return to map</a></p>
-			<form enctype='multipart/form-data' method='post' action='?uploadpage'>
+			<form enctype='multipart/form-data' method='post' action='ActionHandler.php?action=addImg'>
+			<input type='hidden' value='$markerId' name='trackMarker'>
 			 	<button type='submit' class='imgBtn'>Add picture</button>
 			</form>";
 
@@ -61,13 +64,16 @@ class ImageView {
 		return $html;
 	}
 
-	public function uploadImagePageHTML() {
+	public function addImagePageHTML($markerId) {
 
 		$html = "
 		 	<div class='container'>
-		 		<div id='content'>
-		 			<h2>Upload a picture</h2>
-		 			<p><a href='?return' class='return'>Tillbaka</a></p>
+		 		<div class='imgContent'>
+		 			<h2>Add a picture</h2>
+		 			<form action='ActionHandler.php?action=retImg' enctype='multipart/form-data' method='post'>
+						<input type='hidden' value='$markerId' name='trackMarker'>
+						 <button type='submit' class='imgBtn'>Return to photo album</button>
+					</form>
 		 			<div id='uploadwrapper'>";
 
 /*		if($this->getMessage() !== null) {
@@ -78,7 +84,7 @@ class ImageView {
 		$html .= "			
 						<div id='formwrapper'>
 					 		<form action='?upload' method='post' enctype='multipart/form-data'>
-								Välj bild och skriv gärna en kommentar: 
+								Chose a picture and upload it to your photo album: 
 								<p><input type='file' name='file' id='file' /></p>  
 								<input type='submit' name='submit' id='uploadButton' value='Upload picture' />
 							</form>
@@ -90,7 +96,17 @@ class ImageView {
 		return $html;
 	} 
 
-	public function getUserAction() {
+	public function getMarkerId() {
+
+		if (isset($_POST[self::$trackMarker])) {
+
+			return $_POST[self::$trackMarker];
+		}
+
+		return NULL;
+	}
+
+/*	public function getUserAction() {
 
 		switch (key($_GET)) {
 
@@ -107,5 +123,5 @@ class ImageView {
 			default:
 				$action = "";
 		}
-	}
+	}*/
 }

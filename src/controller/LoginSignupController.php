@@ -59,10 +59,6 @@ class LoginSignupController {
 					return $this->startView->showStartView();
 					break;
 
-				case \view\LoginSignupView::$actionLogout:
-					return $this->logoutUser();
-					break; 
-
 				default: 
 					return $this->startView->showStartView();
 					break;
@@ -109,8 +105,6 @@ class LoginSignupController {
 				$this->loginSignupModel->setSessionVariables($this->loginSignupView->getPostedUserName());
 
 				$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_SUCCESS_LOGIN);
-
-//				$this->mapRepository->getAllMarkersFromDB($this->loginSignupRepository->getUserId($this->loginSignupView->getPostedUserName()));
 
 				return $this->mapView->showMapView();
 

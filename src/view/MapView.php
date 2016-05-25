@@ -30,7 +30,7 @@ class MapView {
                             </div>
                         	<div class='collapse navbar-collapse' id='myNavBar'>
                             	<ul class='nav navbar-nav navbar-right'>
-                                	<li><a href='?logout'><span class='glyphicon glyphicon-log-out'></span> Logout</a></li>
+                                	<li><a href='ActionHandler.php?action=logout'><span class='glyphicon glyphicon-log-out'></span> Logout</a></li>
                             	</ul>
                         	</div>
                        	</div>
@@ -38,8 +38,6 @@ class MapView {
                     <div class='container'>
 	                    <div id='infotext'>Click on the map to add a new marker, drag and drop it wherever you like. If you want to remove a marker, just right-click on the marker. For editing, saving and deleting markers, just click on the marker. Enjoy!
 	                    </div>
-                    </div>
-                    <div id='imgContainer'>
                     </div>
         ";
 
