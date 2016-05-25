@@ -114,5 +114,6 @@ if(isset($_GET['action'])) {
  	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);
  	    	exit;
  	    break;
+
  	}
 } 

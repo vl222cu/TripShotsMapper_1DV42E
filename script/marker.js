@@ -63,8 +63,8 @@ function createMarkers(location, html, id) {
     deleteBtn.id = "deleteBtn";
     deleteBtn.innerText = "Delete this marker";
     var imgBtn = document.createElement("button");
-    imgBtn.id = "deleteBtn";
-    imgBtn.innerText = "Add pictures";
+    imgBtn.className = "imageBtn";
+    imgBtn.innerText = "Photo Album";
     var container = document.createElement("div");
     container.id = "infocontainer";
     container.appendChild(htmlBox);
@@ -119,14 +119,15 @@ function placeMarker (location, html) {
     var deleteBtn = document.createElement("button");
     deleteBtn.id = "deleteBtn";
     deleteBtn.innerText = "Delete this marker";
+    var imgBtn = document.createElement("button");
+    imgBtn.className = "imageBtn";
+    imgBtn.innerText = "Photo Album";
     var container = document.createElement("div");
     container.id = "infocontainer";
     container.appendChild(htmlBox);
     container.appendChild(textBox);
     container.appendChild(editBtn);
     container.appendChild(saveBtn);
-    container.appendChild(deleteBtn);
-    deleteBtn.style.display = "none";
 
     var infoWin = new google.maps.InfoWindow({
         content : container
@@ -167,10 +168,6 @@ function placeMarker (location, html) {
     google.maps.event.addDomListener(saveBtn, "click", function() {
         saveMarker(marker, infoWin);
     });
-
-     google.maps.event.addDomListener(deleteBtn, "click", function() {
-        deleteMarker(marker);
-    });
 }
 
 function saveMarker(Marker, infoWin) {
@@ -182,11 +179,9 @@ function saveMarker(Marker, infoWin) {
 
     downloadUrl(url, function(data) {
         if (data.status == 200) {
-            $( "#deleteBtn" ).show();
-            $( "#editBtn" ).hide();
-            $( "#saveBtn" ).hide();
             Marker.setDraggable(false);
             infoWin.close();
+            loadMarkers();
         }
     });
 }
