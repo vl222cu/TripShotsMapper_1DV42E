@@ -88,10 +88,34 @@ class ImageRepository extends base\Repository {
 		}
 		
 		/**
-		   	* Close the PDO-connection to the database 
-		   	*/
+		* Close the PDO-connection to the database 
+		*/
 		$this->db = null;
 
 		return $dateImages;
+	}
+
+	public function deleteImageFromDB($displayedImg) {
+
+		if (@unlink($this->imageFolder . $displayedImg)) {
+
+			$db = $this->connection();
+
+			$sql = "DELETE FROM $this->dbTable WHERE " . self::$strImage . " = ?";
+			$query = $db->prepare($sql);
+			$params = array($displayedImg);
+			$statement = $query->execute($params); 
+
+			/**
+			* Close the PDO-connection to the database 
+			*/
+		    $this->db = null;
+
+			return true;
+
+		} else {
+
+			return false;
+		}
 	}
 }

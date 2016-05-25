@@ -103,5 +103,16 @@ if(isset($_GET['action'])) {
  	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);
  	      	exit;
  	    break;
+
+ 	    case 'deleteImg':
+ 	    	$imageModel = new \model\ImageModel();
+ 	    	$imageView = new \view\ImageView($imageModel);
+ 	    	$markerId = $imageView->getMarkerId();
+ 	    	$imageController = new \controller\ImageController();
+ 	    	$htmlBody = $imageController->deleteImage($markerId);
+ 	    	$htmlView = new \view\HTMLView();
+ 	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);
+ 	    	exit;
+ 	    break;
  	}
 } 

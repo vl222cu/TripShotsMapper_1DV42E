@@ -14,10 +14,13 @@ class ImageView {
 	private static $tempName = 'tmp_name';
 	private static $imgType = 'type';
 	private static $imgSize = 'size';
+	private static $deleteFile = "delete_file";
 
 	const MESSAGE_UPLOAD_SUCCESSED = 'The picture has successfully been saved';
 	const MESSAGE_ERROR_UPLOAD_FAILED = 'The picture has not been saved. Please verify that the picture type is jpg/jpeg, gif or png and that the total size is not larger than 2MB with maximum width of 800px and maximum length of 800px';
 	const MESSAGE_ERROR_UPLOAD_TO_SERVER = 'Something went wrong! The picture could not be saved at this time. Please try again later';
+	const MESSAGE_DELETE_SUCCESSED = 'The picture has successfully been deleted';
+	const MESSAGE_DELETE_FAILED = 'Something went wrong! The picture could not be saved at this time. Please try again later';
 
 
 	public function __construct(\model\ImageModel $imageModel) {
@@ -36,10 +39,10 @@ class ImageView {
 		 			</div>
 			 			<div id='contentwrapper'>";
 
-/*		if($this->getImgMessage() !== null) {
+		if($this->getImgMessage() !== null) {
 
 			$html .= "<div class=Msgstatus>$this->message</div>";
-		}; */
+		}; 
 
 		$html .= "
 			<p><a href='ActionHandler.php?action=return'>Return to map</a></p>
@@ -58,8 +61,9 @@ class ImageView {
 					<div class='image'>
 						<a title='tripShotsMapper' href='./images/$imageURL'>
 						<img src='./images/$imageURL' alt='img'/></a>
-						<form action='?delete' enctype='multipart/form-data' method='post'>
+						<form action='ActionHandler.php?action=deleteImg' enctype='multipart/form-data' method='post'>
 							<input type='hidden' value='$imageURL' name='delete_file'>
+							<input type='hidden' value='$markerId' name='trackMarker'>
 						 	<button type='submit' class='imgBtn'>Delete picture</button>
 						</form>
 					</div>";
@@ -166,11 +170,18 @@ class ImageView {
 		$this->message = '<p>' . $msg . '</p>';
 	}
 
-	/**
-	 * Hämtar meddelande
-	 */
 	 public function getImgMessage() {
 
         return $this->message;
     }
+
+    public function getImageURL() {
+
+		if (isset($_POST[self::$deleteFile])) {
+
+			return $_POST[self::$deleteFile];
+		}
+
+		return NULL;
+	}
 }

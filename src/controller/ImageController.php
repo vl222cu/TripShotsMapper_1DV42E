@@ -59,4 +59,20 @@ class ImageController {
 			return $this->imageView->uploadImagePageHTML($markerId);
 		}
 	}
+
+	public function deleteImage($markerId) {
+
+		if ($this->imageRepository->deleteImageFromDB($this->imageView->getImageURL())) {
+
+			$this->imageView->setImgMessage(\view\ImageView::MESSAGE_DELETE_SUCCESSED);
+
+			return $this->showAllImages($markerId);
+
+		} else {
+
+			$this->imageView->setImgMessage(\view\ImageView::MESSAGE_DELETE_FAILED);
+
+			return $this->showAllImages($markerId);
+		}
+	}
 }
