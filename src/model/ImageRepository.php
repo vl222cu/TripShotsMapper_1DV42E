@@ -10,7 +10,7 @@ class ImageRepository extends base\Repository {
 	private $imageModel;
 	private static $strImage = 'image';
 	private static $markerId = 'markerID';
-	private $imageFolder = './images';
+	private $imageFolder = './images/';
 	private static $dateAdded = 'dateAdded';
 	private static $imgId = 'imgID';
 
@@ -85,7 +85,6 @@ class ImageRepository extends base\Repository {
 		while ($result = $query->fetch(\PDO::FETCH_ASSOC)) {
 
 			$dateImages[$result[self::$dateAdded]][] = $result;
-
 		}
 		
 		/**

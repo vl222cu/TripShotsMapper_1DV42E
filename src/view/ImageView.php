@@ -5,9 +5,19 @@ namespace view;
 class ImageView {
 
 	private $imageModel;
+	private $message = '';
 	public static $actionReturn = 'return';
 	public static $actionUploadPage = 'uploadpage';
-	private static $trackMarker = "trackMarker";
+	private static $trackMarker = 'trackMarker';
+	private static $imgFile = 'file';
+	private static $imgName = 'name';
+	private static $tempName = 'tmp_name';
+	private static $imgType = 'type';
+	private static $imgSize = 'size';
+
+	const MESSAGE_UPLOAD_SUCCESSED = 'The picture has successfully been saved';
+	const MESSAGE_ERROR_UPLOAD_FAILED = 'The picture has not been saved. Please verify that the picture type is jpg/jpeg, gif or png and that the total size is not larger than 2MB with maximum width of 800px and maximum length of 800px';
+	const MESSAGE_ERROR_UPLOAD_TO_SERVER = 'Something went wrong! The picture could not be saved at this time. Please try again later';
 
 
 	public function __construct(\model\ImageModel $imageModel) {
@@ -20,11 +30,13 @@ class ImageView {
 
 		$html = "
 		 	<div class='container'>
-		 		<div class='imgContent'>
-		 			<h2>Add pictures to your destination</h2>
-			 		<div id='contentwrapper'>";
+		 		<div class='imgUploadContent'>
+		 			<div class='page-header'>
+		 				<h2>Add pictures to your destination</h2>
+		 			</div>
+			 			<div id='contentwrapper'>";
 
-/*		if($this->getMessage() !== null) {
+/*		if($this->getImgMessage() !== null) {
 
 			$html .= "<div class=Msgstatus>$this->message</div>";
 		}; */
@@ -64,29 +76,32 @@ class ImageView {
 		return $html;
 	}
 
-	public function addImagePageHTML($markerId) {
+	public function uploadImagePageHTML($markerId) {
 
 		$html = "
 		 	<div class='container'>
 		 		<div class='imgContent'>
-		 			<h2>Add a picture</h2>
-		 			<form action='ActionHandler.php?action=retImg' enctype='multipart/form-data' method='post'>
+		 			<div class='page-header'>
+		 				<h2>Add a picture</h2>
+		 			</div>
+		 			<form action='ActionHandler.php?action=retImg' method='post' enctype='multipart/form-data'>
 						<input type='hidden' value='$markerId' name='trackMarker'>
 						 <button type='submit' class='imgBtn'>Return to photo album</button>
 					</form>
 		 			<div id='uploadwrapper'>";
 
-/*		if($this->getMessage() !== null) {
+		if($this->getImgMessage() !== null) {
 
 			$html .= "<div class=Msgstatus>$this->message</div>";
-		}; */
+		}; 
 		
 		$html .= "			
 						<div id='formwrapper'>
-					 		<form action='?upload' method='post' enctype='multipart/form-data'>
+					 		<form action='ActionHandler.php?action=uploadImg' method='post' enctype='multipart/form-data'>
+					 			<input type='hidden' value='$markerId' name='trackMarker'>
 								Chose a picture and upload it to your photo album: 
 								<p><input type='file' name='file' id='file' /></p>  
-								<input type='submit' name='submit' id='uploadButton' value='Upload picture' />
+								<input type='submit' name='submit' id='uploadBtn' value='Upload picture' />
 							</form>
 						</div>
 					</div>
@@ -106,22 +121,56 @@ class ImageView {
 		return NULL;
 	}
 
-/*	public function getUserAction() {
+	public function getImage() {
 
-		switch (key($_GET)) {
+    	if (isset( $_FILES[self::$imgFile]) && !empty($_FILES[self::$imgFile][self::$imgName])) {
 
-			case self::$actionReturn:
-				$action = self::$actionReturn;
-				return $action;
-				break;
+    		return $_FILES[self::$imgFile][self::$imgName];
+  		}
 
-			case self::$actionUploadPage:
-				$action = self::$actionUploadPage;
-				return $action;
-				break;
+  		return NULL; 
+    }
 
-			default:
-				$action = "";
-		}
-	}*/
+    public function getTempImage() {
+
+    	if (isset( $_FILES[self::$imgFile]) && !empty($_FILES[self::$imgFile][self::$tempName])) {
+
+    		return $_FILES[self::$imgFile][self::$tempName];
+  		}
+
+  		return NULL; 
+    }
+
+    public function getImageType() {
+
+    	if (isset( $_FILES[self::$imgFile][self::$imgType]) && !empty( $_FILES[self::$imgFile][self::$imgType])) {
+
+    		return $_FILES[self::$imgFile][self::$imgType];
+  		}
+
+  		return NULL;
+    }
+
+    public function getImageSize() {
+
+    	if (isset( $_FILES[self::$imgFile][self::$imgSize]) && !empty( $_FILES[self::$imgFile][self::$imgSize])) {
+
+    		return $_FILES[self::$imgFile][self::$imgSize];
+  		}
+
+  		return NULL;
+    }
+
+    public function setImgMessage($msg) {
+
+		$this->message = '<p>' . $msg . '</p>';
+	}
+
+	/**
+	 * Hämtar meddelande
+	 */
+	 public function getImgMessage() {
+
+        return $this->message;
+    }
 }

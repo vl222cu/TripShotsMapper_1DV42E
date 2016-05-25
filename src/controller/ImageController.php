@@ -9,16 +9,16 @@ require_once("./src/view/MapView.php");
 
 class ImageController {
 
-	private $ImageModel;
+	private $imageModel;
 	private $imageRepository;
 	private $ImageView;
 	private $mapView;
 
 	public function __construct() {
 
-		$this->ImageModel = new \model\ImageModel();
+		$this->imageModel = new \model\ImageModel();
 		$this->imageRepository = new \model\ImageRepository();
-		$this->imageView = new \view\ImageView($this->ImageModel);
+		$this->imageView = new \view\ImageView($this->imageModel);
 		$this->mapView = new \view\MapView();
 
 	}
@@ -31,7 +31,32 @@ class ImageController {
 	}
 
 	public function showAddImagePage($markerId) {
-		var_dump($markerId);
-		return $this->imageView->addImagePageHTML($markerId);	
+
+		return $this->imageView->uploadImagePageHTML($markerId);	
+	}
+
+	public function uploadImage($markerId) {
+
+		if ($this->imageModel->validImage($this->imageView->getImageType()) && $this->imageModel->checkImageSize($this->imageView->getTempImage())) {
+
+			if ($this->imageRepository->saveImage($markerId, $this->imageView->getImage())) {
+
+				$this->imageView->setImgMessage(\view\ImageView::MESSAGE_UPLOAD_SUCCESSED);
+
+				return $this->imageView->uploadImagePageHTML($markerId);
+
+			} else {
+
+				$this->imageView->setImgMessage(\view\ImageView::MESSAGE_ERROR_UPLOAD_TO_SERVER);
+
+				return $this->imageView->uploadImagePageHTML($markerId);
+			}
+
+		} else {
+
+			$this->imageView->setImgMessage(\view\ImageView::MESSAGE_ERROR_UPLOAD_FAILED);
+
+			return $this->imageView->uploadImagePageHTML($markerId);
+		}
 	}
 }

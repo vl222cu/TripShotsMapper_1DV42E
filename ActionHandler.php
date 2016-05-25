@@ -91,5 +91,17 @@ if(isset($_GET['action'])) {
  	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);
  	      	exit;
  	    break;
+
+
+ 	    case 'uploadImg':
+ 			$imageModel = new \model\ImageModel();
+ 	    	$imageView = new \view\ImageView($imageModel);
+ 	    	$markerId = $imageView->getMarkerId();
+ 	    	$imageController = new \controller\ImageController();
+ 	    	$htmlBody = $imageController->uploadImage($markerId);
+ 	    	$htmlView = new \view\HTMLView();
+ 	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);
+ 	      	exit;
+ 	    break;
  	}
 } 
