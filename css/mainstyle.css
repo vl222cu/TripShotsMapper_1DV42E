@@ -67,7 +67,7 @@ h2 {
     text-align: center;
 }
 
-div.loginmsg {
+div.loginMsg {
     color: #4EB00E;
     text-shadow: 2px 2px 0 #000;
     font-size: 30px;
@@ -81,7 +81,7 @@ div.mapmsg {
     margin-top: 20px;
 }
 
-.Msgstatus {
+.msgStatus {
     text-align: center;
     color: #4EB00E;
     text-shadow: 2px 2px 0 #000;

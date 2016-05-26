@@ -157,7 +157,7 @@ class LoginSignupView {
 
 		if($this->getMessage() !== null) {
 
-			$html .= "<div class='loginmsg'>$this->message</div>";
+			$html .= "<div class='loginMsg'>$this->message</div>";
 
 		};
 

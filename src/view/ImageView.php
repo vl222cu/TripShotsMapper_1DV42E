@@ -96,7 +96,7 @@ class ImageView {
 
 		if($this->getImgMessage() !== null) {
 
-			$html .= "<div class=Msgstatus>$this->message</div>";
+			$html .= "<div class=msgStatus>$this->message</div>";
 		}; 
 		
 		$html .= "			

@@ -31,6 +31,7 @@ class HTMLView {
                         <script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
                         <script src='//cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js'></script>
                         <script src='./script/jasny-bootstrap.js'></script>
+                        <script src='./script/messageHandler.js'></script>
                     </body>
                 </html>
         ";
