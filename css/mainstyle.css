@@ -80,16 +80,15 @@ div.mapmsg {
     font-size: 30px;
     margin-top: 20px;
 }
-/*
-div.alert,
-div.alert-success,
-div.laert-info,
-div.alert-warning,
-div.alert-danger,
-div.close {
-    display: none;
+
+.Msgstatus {
+    text-align: center;
+    color: #4EB00E;
+    text-shadow: 2px 2px 0 #000;
+    font-size: 20px;
+    font-weight: 900;
 }
-*/
+
 .form-box {
 	margin-top: 70px;
 }
@@ -304,7 +303,8 @@ button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; col
 
 #editBtn,
 #saveBtn,
-#deleteBtn {
+#deleteBtn,
+.imageBtn {
     margin-top: 10px;
     margin-right: 5px;
     margin-bottom: 10px;
@@ -325,7 +325,19 @@ button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; col
 	background: linear-gradient(#263966 5%, #79bbff 100%);
 }
 
-#imgContent {
+/* <-------Image settings---------->*/
+#uploadwrapper {
+    margin-top: 50px;
+    margin-left: 20px;
+    padding-bottom: 15px;
+}
+
+#formwrapper {
+    padding-top: 20px;
+    margin-bottom: 30px;
+}
+
+.imgContent {
     background: url(../pics/bg.jpg) repeat; 
     opacity: 0.92;
     filter: alpha(opacity=92); /* For IE8 and earlier */
@@ -337,7 +349,22 @@ button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; col
     text-align: center;
 }
 
-button.imgBtn {
+.imgUploadContent {
+    background: url(../pics/bg.jpg) repeat; 
+    margin: 100px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #888;
+    line-height: 30px;
+    text-align: center;
+}
+
+.page-header {
+    padding-top: 10px;
+}
+
+button.imgBtn,
+#uploadBtn {
     margin-top: 20px;
     margin-bottom: 20px;
     vertical-align: middle;
@@ -348,108 +375,14 @@ button.imgBtn {
     line-height: 50px;
     color: #fff;
 }
-/* <-------new window settings---------->*/
 
-.newwindow {
-    position: absolute;
-    border-radius: 7px 7px 4px 4px;
-    box-shadow: 0 0 5px black;
+.img-responsive {
+    margin: auto;
 }
 
-.nwtitlebar {
-    background: #2F2F30;
-    border-radius: 7px 7px 0 0;
-    padding: 6px 5px 0 5px;
-    height: 50px;
+#uploadBtn {
+    display: block;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-.nwtitlename {
-    color: #FFF;
-    font-family: "tahoma", "verdana", "sans-serif";
-    font-size: 13px;
-    font-weight:bold;
-}
-
-.titleicon {
-    width: 25px;
-    height: 25px;
-    float: left;
-    margin-right: 5px;
-    background-size: 100% 100%;
-    
-}
-
-#closebutton {
-    width: 15px;
-    height: 15px;
-    float: right;
-    margin-top: 6px;
-    margin-right: 6px;
-}
-
-.nwcontent {
-    background: #CCC;
-    padding: 5px;
-    min-height: 250px;
-    max-height: 450px;
-    overflow: auto;
-}
-
-.nwfooter {
-    background: #2F2F30;
-    color: #FFF;
-    border-radius: 0 0 7px 7px;
-    height: 20px;
-    padding: 5px;
-    padding-bottom: 0;
-    overflow: hidden;
-}
-
-.thumbdiv {
-    display: inline-block;
-    margin: 7px;
-    padding: 7px;
-    text-align: center;
-    border: solid 1px #EEE;  
-    background: -webkit-gradient(linear,
-        left bottom,
-        left top,
-        color-stop(0, rgb(134,135,140)),
-        color-stop(0.41, rgb(217,217,217)),
-        color-stop(1, rgb(134,135,140))
-    );
-    background: -webkit-linear-gradient(
-        center bottom,
-        color-stop(0, rgb(134,135,140)),
-        color-stop(0.41, rgb(217,217,217)),
-        color-stop(1, rgb(134,135,140))
-    );
-    background: -moz-linear-gradient(
-        center bottom,
-        rgb(134,135,140) 0%,
-        rgb(217,217,217) 41%,
-        rgb(134,135,140) 100%
-    );
-    background: -o-linear-gradient(
-        center bottom,
-        rgb(134,135,140) 0%,
-        rgb(217,217,217) 41%,
-        rgb(134,135,140) 100%
-    );
-    -moz-box-shadow: rgba(0,0,0, 0.3) 0 0 8px;  
-    -webkit-box-shadow: rgba(0,0,0, 0.3) 0 0 8px;
-    box-shadow: rgba(0,0,0, 0.3) 0 0 8px; 
-    -webkit-border-radius: 5px;  
-    -moz-border-radius: 5px;  
-    border-radius: 5px;
-}
-
-#ajaxloader {
-    display: none;
-}
-
-.thumb {
-    height: 75px;
-    border: 1px solid #000;
-    margin: 10px 5px 0 0;
-  }

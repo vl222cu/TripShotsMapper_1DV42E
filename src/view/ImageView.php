@@ -60,7 +60,7 @@ class ImageView {
 				$html .= "
 					<div class='image'>
 						<a title='tripShotsMapper' href='./images/$imageURL'>
-						<img src='./images/$imageURL' alt='img'/></a>
+						<img src='./images/$imageURL' class='img-responsive' alt='Responsive image'/></a>
 						<form action='ActionHandler.php?action=deleteImg' enctype='multipart/form-data' method='post'>
 							<input type='hidden' value='$imageURL' name='delete_file'>
 							<input type='hidden' value='$markerId' name='trackMarker'>
@@ -103,9 +103,11 @@ class ImageView {
 						<div id='formwrapper'>
 					 		<form action='ActionHandler.php?action=uploadImg' method='post' enctype='multipart/form-data'>
 					 			<input type='hidden' value='$markerId' name='trackMarker'>
-								Chose a picture and upload it to your photo album: 
-								<p><input type='file' name='file' id='file' /></p>  
-								<input type='submit' name='submit' id='uploadBtn' value='Upload picture' />
+						 		<div class='fileinput fileinput-new' data-provides='fileinput'>
+	    								<span class='btn btn-default btn-file'><span>Choose file</span><input type='file' name='file' id='file'/></span>
+	    								<span class='fileinput-filename'></span><span class='fileinput-new'>No file chosen</span>
+								</div>
+								<button type='submit' id='uploadBtn'>Upload picture</button>
 							</form>
 						</div>
 					</div>
