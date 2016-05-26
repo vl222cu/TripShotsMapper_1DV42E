@@ -116,12 +116,6 @@ function placeMarker (location, html) {
     var saveBtn = document.createElement("button");
     saveBtn.id = "saveBtn";
     saveBtn.innerText = "Save this marker";
-    var deleteBtn = document.createElement("button");
-    deleteBtn.id = "deleteBtn";
-    deleteBtn.innerText = "Delete this marker";
-    var imgBtn = document.createElement("button");
-    imgBtn.className = "imageBtn";
-    imgBtn.innerText = "Photo Album";
     var container = document.createElement("div");
     container.id = "infocontainer";
     container.appendChild(htmlBox);
@@ -158,13 +152,13 @@ function placeMarker (location, html) {
         marker.set("html", textBox.value);
     });
     
-    // Eventlistener to cancel marker on right click
+    // Cancel the new marker on right click
     google.maps.event.addListener(marker, "rightclick", function() {
         if (marker.getDraggable()) {
             marker.setMap(null);
         } 
     }); 
-
+    // Saves the marker to database when clicking on the save button
     google.maps.event.addDomListener(saveBtn, "click", function() {
         saveMarker(marker, infoWin);
     });
@@ -182,6 +176,7 @@ function saveMarker(Marker, infoWin) {
             Marker.setDraggable(false);
             infoWin.close();
             loadMarkers();
+            messages('The location has successfully been saved');
         }
     });
 }
@@ -196,6 +191,7 @@ function deleteMarker(Marker) {
         console.log(data);
         if (data.status == 200) {
             Marker.setMap(null);
+            messages('The location has successfully been deleted');
         }
     });
 }

@@ -24,7 +24,7 @@ class MapController {
     	$this->mapRepository = new \model\MapRepository();
     	$this->loginSignupModel = new \model\LoginSignupModel();
     	$this->loginSignupView = new \view\LoginSignupView($this->loginSignupModel);
-        $this->mapView = new \view\MapView();
+        $this->mapView = new \view\MapView($this->mapModel);
         $this->loginSignupRepository = new \model\LoginSignupRepository();
 
 /*        $actionMode = $this->mapView->fetchAction(self::$mode);
@@ -45,18 +45,7 @@ class MapController {
     
         $xmlMarkers = $this->mapModel->getMarkersByUser($userId);
 
-        if ($xmlMarkers) {
-
-            var_dump($this->mapView->setMapMessage(\view\MapView::MESSAGE_SUCCSESS_GET_ALL_MARKERS));
-
-            return $xmlMarkers;
-
-        } else {
-
-            $this->mapView->setMapMessage(\view\MapView::MESSAGE_ERROR_GET_ALL_MARKERS);
-
-        }   	
-    	
+        return $xmlMarkers;   	
     } 
 
     public function saveUserMarker($lat, $lng, $comment) {      
@@ -65,15 +54,7 @@ class MapController {
 
         $userId = $this->loginSignupRepository->getUserId($postedUserName);
 
-        if ($this->mapModel->saveMarkerByUser($userId, $lat, $lng, $comment)) {
-
-            $this->mapView->setMapMessage(\view\MapView::MESSAGE_SUCCSESS_SAVE_MARKER);
-
-        } else {
-
-            $this->mapView->setMapMessage(\view\MapView::MESSAGE_ERROR_SAVE_MARKER);
-        }
-        
+        $this->mapModel->saveMarkerByUser($userId, $lat, $lng, $comment);        
     } 
 
     public function deleteUserMarker($lat, $lng) {      
@@ -82,18 +63,7 @@ class MapController {
 
         $userId = $this->loginSignupRepository->getUserId($postedUserName);
 
-        if ($this->mapModel->deleteMarkerByUser($userId, $lat, $lng)) {
-
-            $this->mapView->setMapMessage(\view\MapView::MESSAGE_SUCCSESS_DELETE_MARKER);
-
-        } else {
-
-            $this->mapView->setMapMessage(\view\MapView::MESSAGE_SUCCSESS_DELETE_MARKER);
-        }
-
-/*        $markerId = $this->mapRepository->getMarkerId($userId, $lat, $lng);
-
-        $this->mapRepository->deleteUserMarkerFromDB($markerId);*/        
+        $this->mapModel->deleteMarkerByUser($userId, $lat, $lng);
     } 
 }
 

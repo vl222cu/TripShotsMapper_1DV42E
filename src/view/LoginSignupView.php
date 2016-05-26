@@ -22,16 +22,17 @@ class LoginSignupView {
 	const MESSAGE_ERROR_USERNAME = 'Username is missing';
 	const MESSAGE_EMPTY_PASSWORD = 'Password is missing';
 	const MESSAGE_ERROR_PASSWORD = 'Password is not correct';
-	const MESSAGE_SUCCESS_LOGIN = 'You are logged in!';
+	const MESSAGE_SUCCESS_LOGIN = 'You are now logged in. Welcome to TripShotsmapper!';
 	const MESSAGE_ERROR_USERNAME_TOO_SHORT = 'Username needs to have a minimum of 3 characters';
 	const MESSAGE_ERROR_USERNAME_INVALID_CHARACTERS = 'Username has invalid characters';
 	const MESSAGE_ERROR_PASSWORD_INVALID_CHARACTERS = 'Password has invalid characters';
 	const MESSAGE_ERROR_USERNAME_ALREADY_EXISTS = 'Username already exists';
 	const MESSAGE_ERROR_PASSWORD_TOO_SHORT = 'Password needs to have a minimum of 6 characters';
-	const MESSAGE_SUCCESS_SIGNUP = 'You are now signed up';
+	const MESSAGE_SUCCESS_SIGNUP = 'You are now signed up. Welcome to TripShotsmapper!';
 	const MESSAGE_ERROR_PASSWORD_NO_MATCH = 'Confirmed password does not match password';
 	const MESSAGE_ERROR_USERNAME_PASSWORD_MISSING = 'Username needs to have a minimum of 3 characters and Password needs to have a minimum of 6 characters';
 	const MESSAGE_ERROR_SIGNUP = 'Something went wrong! Please try again';
+	const MESSAGE_SUCCESS_LOGOUT = 'You are now signed out. Visit us again soon!';
 
 	public function __construct(\model\LoginSignupModel $loginSignupModel) {
 		

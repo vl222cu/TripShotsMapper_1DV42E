@@ -124,5 +124,10 @@ class LoginSignupModel {
 
         return false;
     }
+
+    public function setSessionMessage($msg) {
+
+        $_SESSION['message'] = $msg;
+    }
 }
 

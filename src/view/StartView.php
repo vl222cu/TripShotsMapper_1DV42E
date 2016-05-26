@@ -23,8 +23,11 @@ class StartView {
                         	</div>
                        	</div>
                     </nav>
-                    <div class='container'><h2>Tanken är att ha någon slags bild här på startsidan</h2></div>";
-		
+                    <div class='container'>
+                        <h2>Tanken är att ha någon slags bild här på startsidan</h2>
+                    </div>
+        ";   
+
 		return $html;
 	}
 }

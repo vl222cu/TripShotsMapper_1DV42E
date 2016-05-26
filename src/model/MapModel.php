@@ -52,5 +52,21 @@ class MapModel {
         return false;        
     }
 
+    public function getSessionMessage() {
+
+        if(!empty($_SESSION['message'])) {
+
+            $message = $_SESSION['message'];
+
+            return $message;
+        }
+        
+        return NULL;
+    }
+
+    public function unsetSessionMessage() {
+
+        $_SESSION['message'] = NULL;
+    }
     
 }

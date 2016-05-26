@@ -2,6 +2,7 @@
 
 namespace controller;
 
+require_once("./src/model/MapModel.php");
 require_once("./src/model/ImageModel.php");
 require_once("./src/model/ImageRepository.php");
 require_once("./src/view/ImageView.php");
@@ -9,6 +10,7 @@ require_once("./src/view/MapView.php");
 
 class ImageController {
 
+	private $mapModel;
 	private $imageModel;
 	private $imageRepository;
 	private $ImageView;
@@ -16,10 +18,11 @@ class ImageController {
 
 	public function __construct() {
 
+		$this->mapModel = new \model\MapModel();
 		$this->imageModel = new \model\ImageModel();
 		$this->imageRepository = new \model\ImageRepository();
 		$this->imageView = new \view\ImageView($this->imageModel);
-		$this->mapView = new \view\MapView();
+		$this->mapView = new \view\MapView($this->mapModel);
 
 	}
 

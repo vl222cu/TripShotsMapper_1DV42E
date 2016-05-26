@@ -67,6 +67,11 @@ h2 {
     text-align: center;
 }
 
+#messageWrapper { 
+    margin-top: 10px;
+    text-align: center;
+}
+
 div.loginMsg {
     color: #4EB00E;
     text-shadow: 2px 2px 0 #000;
@@ -74,11 +79,10 @@ div.loginMsg {
     margin-top: 20px;
 }
 
-div.mapmsg {
-    color: #4EB00E;
-    text-shadow: 2px 2px 0 #000;
+#mapmsg {
+    color: #36B9EB;
+    font-weight: 900;
     font-size: 30px;
-    margin-top: 20px;
 }
 
 .msgStatus {
@@ -87,6 +91,13 @@ div.mapmsg {
     text-shadow: 2px 2px 0 #000;
     font-size: 20px;
     font-weight: 900;
+}
+
+.sessionMsg {
+    text-align: center;
+    color: #36B9EB;
+    font-weight: 900;
+    font-size: 30px;
 }
 
 .form-box {

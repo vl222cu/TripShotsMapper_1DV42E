@@ -6,7 +6,8 @@
 require_once("src/controller/LoginSignupController.php");
 require_once("src/controller/MapController.php");
 require_once("src/controller/ImageController.php");
-require_once("src/model/Imagemodel.php");
+require_once("src/model/ImageModel.php");
+require_once("src/model/MapModel.php");
 require_once("src/helper/SessionHandler.php");
 require_once("src/view/HTMLView.php");
 require_once("src/view/MapView.php");
@@ -54,7 +55,9 @@ if(isset($_GET['action'])) {
  	    break;
 
  	    case 'return':
- 	    	$mapView = new \view\MapView();
+ 	    	$mapModel = new \model\MapModel();
+ 	    	$mapView = new \view\MapView($mapModel);
+ 	    	$mapModel->unsetSessionMessage();
  	    	$htmlBody = $mapView->showMapView();
  	    	$htmlView = new \view\HTMLView();
  	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);

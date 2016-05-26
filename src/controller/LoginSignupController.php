@@ -29,7 +29,7 @@ class LoginSignupController {
 		$this->loginSignupRepository = new \model\LoginSignupRepository();
 		$this->loginSignupView = new \view\LoginSignupView($this->loginSignupModel);
 		$this->startView = new \view\StartView();
-		$this->mapView = new \view\MapView();
+		$this->mapView = new \view\MapView($this->mapModel);
 		$this->mapRepository = new \model\MapRepository();
 		$this->mapController = new \controller\MapController();
 		$this->user = null;
@@ -104,7 +104,7 @@ class LoginSignupController {
 
 				$this->loginSignupModel->setSessionVariables($this->loginSignupView->getPostedUserName());
 
-				$this->loginSignupView->setMessage(\view\loginSignupView::MESSAGE_SUCCESS_LOGIN);
+				$this->loginSignupModel->setSessionMessage(\view\loginSignupView::MESSAGE_SUCCESS_LOGIN);
 
 				return $this->mapView->showMapView();
 
@@ -153,7 +153,7 @@ class LoginSignupController {
 
 			if ($isUserRegistrationValid == true) {
 
-				$this->loginSignupView->setMessage(\view\LoginSignupView::MESSAGE_SUCCESS_SIGNUP);	
+				$this->loginSignupModel->setSessionMessage(\view\loginSignupView::MESSAGE_SUCCESS_SIGNUP);	
 	
                 return $this->mapView->showMapView();
 

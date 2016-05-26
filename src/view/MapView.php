@@ -4,16 +4,16 @@ namespace view;
 
 class MapView {
 
+	private $mapModel;
 	private static $lat = 'lat';
 	private static $lng = 'lng';
 	private static $comment = 'comment';
-	private $message = "";
-	const MESSAGE_ERROR_GET_ALL_MARKERS = 'Something went wrong! Please logout and try a new session';
-	const MESSAGE_SUCCSESS_GET_ALL_MARKERS = 'All your markers are successfully shown';
-	const MESSAGE_ERROR_SAVE_MARKER = 'Something went wrong! The marker has not been saved.Please logout and try a new session';
-	const MESSAGE_SUCCESS_SAVE_MARKER = 'The marker is successfully saved';
-	const MESSAGE_ERROR_DELETE_MARKER = 'Something went wrong! The marker has not been deleted. Please logout and try a new session';
-	const MESSAGE_SUCCESS_DELETE_MARKER = 'The marker is successfully deleted';
+	private $message = '';
+
+	public function __construct(\model\MapModel $mapModel) {
+		
+		$this->mapModel = $mapModel;
+	}
 
 	public function showMapView() {
 
@@ -39,11 +39,14 @@ class MapView {
 	                    <div id='infotext'>Click on the map to add a new marker, drag and drop it wherever you like. If you want to remove a marker, just right-click on the marker. For editing, saving and deleting markers, just click on the marker. Enjoy!
 	                    </div>
                     </div>
+                    <div id='messageWrapper'>
+                		<p id='mapmsg'></p>
+            		</div>
         ";
 
-        if($this->getMapMessage() !== null) {
+        if($this->getMessage() !== null) {
 
-			$html .= "<div class='mapmsg'>$this->message</div>";
+			$html .= "<div class='sessionMsg'>$this->message</div>";
 
 		};
 
@@ -55,13 +58,9 @@ class MapView {
 		return $html;
 	}
 
-	public function getMapMessage() {
+	public function getMessage() {
 
-		return $this->message;
-	}
-
-	public function setMapMessage($msg) {
-
-		$this->message = '<p>' . $msg . '</p>';
-	}
+		return $this->message = $this->mapModel->getSessionMessage();
+     
+    }
 }
