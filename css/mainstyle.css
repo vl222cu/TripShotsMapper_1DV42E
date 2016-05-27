@@ -35,6 +35,16 @@ h2 {
     letter-spacing: 2px;
 }
 
+#imgContainer {
+    width: 70%;
+    height: 70%;
+    margin: auto;
+    background-color: #FFF;
+    -moz-box-shadow: 0 0 5px 10px rgba(25,25,25,0.1);
+    -webkit-box-shadow: 0 0 5px 10px rgba(25,25,25,0.1);
+    box-shadow: 0 0 5px 10px rgba(25,25,25,0.1);
+}
+
 /* <-------login & signup form settings---------->*/
 
 .close {

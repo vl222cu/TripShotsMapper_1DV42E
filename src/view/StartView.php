@@ -24,7 +24,9 @@ class StartView {
                        	</div>
                     </nav>
                     <div class='container'>
-                        <h2>Tanken är att ha någon slags bild här på startsidan</h2>
+                        <div id='imgContainer'>
+                        <img class='img-responsive img-rounded' src='./pics/cover.jpg' alt='cover' id='cover'/></div>
+                        </div>
                     </div>
         ";   
 
