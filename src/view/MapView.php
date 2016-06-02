@@ -36,8 +36,11 @@ class MapView {
                        	</div>
                     </nav>
                     <div class='container'>
-	                    <div id='infotext'>Click on the map to add a new marker, drag and drop it wherever you like. If you want to remove a marker, just right-click on the marker. For editing, saving and deleting markers, just click on the marker. Enjoy!
-	                    </div>
+                    	<div class='row row-centered'>
+        					<div class='col-md-12 col-xs-12 col-centered'>
+            					Click on the map to add a new marker, drag and drop it wherever you like. If you want to remove the new marker, just right-click on the marker. For editing, saving, deleting and adding pictures to the marker, just click on the marker. Enjoy!
+        					</div>
+        				</div>	             
                     </div>
                     <div id='messageWrapper'>
                 		<p id='mapmsg'></p>

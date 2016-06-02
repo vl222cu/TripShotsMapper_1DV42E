@@ -17,7 +17,7 @@ class ImageView {
 	private static $deleteFile = "delete_file";
 
 	const MESSAGE_UPLOAD_SUCCESSED = 'The picture has successfully been saved';
-	const MESSAGE_ERROR_UPLOAD_FAILED = 'The picture has not been saved. Please verify that the picture type is jpg/jpeg, gif or png and that the total size is not larger than 2MB with maximum width of 800px and maximum length of 800px';
+	const MESSAGE_ERROR_UPLOAD_FAILED = 'The picture has not been saved. Please verify that the picture type is jpg/jpeg, gif or png and that the total size is not larger than 2MB with maximum width of 800px and maximum height of 800px';
 	const MESSAGE_ERROR_UPLOAD_TO_SERVER = 'Something went wrong! The picture could not be saved at this time. Please try again later';
 	const MESSAGE_DELETE_SUCCESSED = 'The picture has successfully been deleted';
 	const MESSAGE_DELETE_FAILED = 'Something went wrong! The picture could not be saved at this time. Please try again later';
@@ -35,7 +35,7 @@ class ImageView {
 		 	<div class='container'>
 		 		<div class='imgUploadContent'>
 		 			<div class='page-header'>
-		 				<h2>Add pictures to your destination</h2>
+		 				<h2>Photo album</h2>
 		 			</div>
 			 			<div id='contentwrapper'>";
 
@@ -45,10 +45,12 @@ class ImageView {
 		}; 
 
 		$html .= "
-			<p><a href='ActionHandler.php?action=return'>Return to map</a></p>
+			<form enctype='multipart/form-data' method='post' action='ActionHandler.php?action=return'>
+			 	<button type='submit' class='imgBtn'>Return to map</button>
+			</form>
 			<form enctype='multipart/form-data' method='post' action='ActionHandler.php?action=addImg'>
 			<input type='hidden' value='$markerId' name='trackMarker'>
-			 	<button type='submit' class='imgBtn'>Add picture</button>
+			 	<button type='submit' class='imgBtn'>Add pictures to your destination</button>
 			</form>";
 
 		foreach ($dbImages as $date => $images) {
@@ -86,7 +88,7 @@ class ImageView {
 		 	<div class='container'>
 		 		<div class='imgContent'>
 		 			<div class='page-header'>
-		 				<h2>Add a picture</h2>
+		 				<h2>Add pictures to your destination</h2>
 		 			</div>
 		 			<form action='ActionHandler.php?action=retImg' method='post' enctype='multipart/form-data'>
 						<input type='hidden' value='$markerId' name='trackMarker'>

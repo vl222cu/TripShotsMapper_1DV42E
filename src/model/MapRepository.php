@@ -59,6 +59,7 @@ class MapRepository extends base\Repository {
         return false;
 	}
 
+
 	public function saveUserMarkerToDB($user, $lat, $lng, $comment) {
 
 		$db = $this->connection();
@@ -66,6 +67,8 @@ class MapRepository extends base\Repository {
 		$sql = " INSERT INTO $this->dbTable" . "(" . self::$userID . "," . self::$latitude . "," . self::$longitude . "," . self::$comment . ")" . " VALUES (?, ?, ?, ?)";
         $query = $db->prepare($sql);
         $query->execute(array($user, $lat, $lng, $comment));
+
+        $this->db = null;
 
         if ($query->rowCount() > 0) {
 
@@ -83,11 +86,13 @@ class MapRepository extends base\Repository {
         $query = $db->prepare($sql);
         $query->execute(array($marker)); 
 
+        $this->db = null;
+
         if ($query->rowCount() > 0) {
 
             return true;
         } 
-        var_dump("not working at all!");
+
         return false;
 	}
 
@@ -100,12 +105,14 @@ class MapRepository extends base\Repository {
        	$query->execute(array($user, $lat, $lng)); 
 
         $result = $query->fetch(\PDO::FETCH_ASSOC);
-        var_dump($result);
+        
         if(!$result) {
 
             return false;
         }
 
+        $this->db = null;
+        
         return $result[self::$markerId];       
     }
 }

@@ -2,9 +2,7 @@
 
 var google,
 map,
-//marker,
-xmlUrl,
-//markers,
+//xmlUrl,
 $;
 
 // Source: https://developers.google.com/maps/documentation/javascript/tutorial
@@ -164,6 +162,7 @@ function placeMarker (location, html) {
     });
 }
 
+
 function saveMarker(Marker, infoWin) {
 
     var comment = escape(document.getElementById("textbox").value);
@@ -172,6 +171,7 @@ function saveMarker(Marker, infoWin) {
     var url = "ActionHandler.php?action=add&lat=" + lat + "&lng=" + lng + "&comment=" + comment;
 
     downloadUrl(url, function(data) {
+        console.log(data);
         if (data.status == 200) {
             Marker.setDraggable(false);
             infoWin.close();
@@ -185,7 +185,7 @@ function deleteMarker(Marker) {
 
     var lat = Marker.getPosition().lat();
     var lng = Marker.getPosition().lng();
-    var url = "ActionHandler.php?action=delete&lat=" + lat + "&lng=" + lng;;
+    var url = "ActionHandler.php?action=delete&lat=" + lat + "&lng=" + lng;
 
     downloadUrl(url, function(data, status) {
         console.log(data);

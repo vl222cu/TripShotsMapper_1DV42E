@@ -4,34 +4,28 @@ namespace controller;
 
 require_once("./src/model/LoginSignupModel.php");
 require_once("./src/model/MapModel.php");
-require_once("./src/model/LoginSignupRepository.php");
 require_once("./src/view/LoginSignupView.php");
 require_once("./src/view/StartView.php");
 require_once("./src/view/MapView.php");
-require_once("./src/model/MapRepository.php");
-require_once("./src/controller/MapController.php"); 
+require_once("./src/view/ErrorPageView.php");
 
 class LoginSignupController {
 
 	private $loginSignupModel;
 	private $mapModel;
-	private $loginSignupRepository;
 	private $loginSignupView;
 	private $startView;
-	private $mapView;
-	private $mapRepository;
+	private $errorPageView;
 	private $user;
 
 	public function __construct() {
 
 		$this->loginSignupModel = new \model\LoginSignupModel();
 		$this->mapModel = new \model\MapModel();
-		$this->loginSignupRepository = new \model\LoginSignupRepository();
 		$this->loginSignupView = new \view\LoginSignupView($this->loginSignupModel);
 		$this->startView = new \view\StartView();
 		$this->mapView = new \view\MapView($this->mapModel);
-		$this->mapRepository = new \model\MapRepository();
-		$this->mapController = new \controller\MapController();
+		$this->errorPageView = new \view\ErrorPageView();
 		$this->user = null;
 	}
 
@@ -66,7 +60,7 @@ class LoginSignupController {
 
 		} catch (\Exception $e) {
 
-			echo $e;
+			$this->errorPageView->showErrorHTML();
 		} 
 	}
 

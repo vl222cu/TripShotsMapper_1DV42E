@@ -9,7 +9,7 @@ abstract class Repository {
 	protected $dbConnection;
 
 	/**
-	 * PDO-uppkoppling mot databasen
+	 * PDO-connection to the database
 	 */
 	protected function connection() {
 

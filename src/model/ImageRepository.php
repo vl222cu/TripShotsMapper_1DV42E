@@ -3,11 +3,9 @@
 namespace model;
 
 require_once ('./src/model/Repository.php');
-require_once ('./src/model/ImageModel.php');
 
 class ImageRepository extends base\Repository {
 
-	private $imageModel;
 	private static $strImage = 'image';
 	private static $markerId = 'markerID';
 	private $imageFolder = './images/';
@@ -17,8 +15,6 @@ class ImageRepository extends base\Repository {
 	 public function __construct() {
 
     	$this->dbTable = 'images';
-    	$this->imageModel = new \model\ImageModel();
-
     }
 
     public function saveImage($marker, $img) {
@@ -78,7 +74,6 @@ class ImageRepository extends base\Repository {
 		$dateImages = array();
 
 		$sql = "SELECT * FROM $this->dbTable WHERE markerID = ? ORDER BY dateAdded DESC, imgID DESC";
-//		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$markerId . " = ? ORDER BY " . self::$dateAdded . "DESC, " . self::$imgId . "DESC";
 		$query = $db->prepare($sql);
 		$query->execute(array($marker));
 
@@ -87,9 +82,6 @@ class ImageRepository extends base\Repository {
 			$dateImages[$result[self::$dateAdded]][] = $result;
 		}
 		
-		/**
-		* Close the PDO-connection to the database 
-		*/
 		$this->db = null;
 
 		return $dateImages;
@@ -106,9 +98,6 @@ class ImageRepository extends base\Repository {
 			$params = array($displayedImg);
 			$statement = $query->execute($params); 
 
-			/**
-			* Close the PDO-connection to the database 
-			*/
 		    $this->db = null;
 
 			return true;

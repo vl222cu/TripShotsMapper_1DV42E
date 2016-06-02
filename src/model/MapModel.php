@@ -31,8 +31,8 @@ class MapModel {
         $savedMarker = $this->mapRepository->saveUserMarkerToDB($user, $lat, $lng, $comment);
 
         if ($savedMarker) {
- 
-             return true;
+            
+            return true;
         }
 
         return false;        
@@ -54,9 +54,9 @@ class MapModel {
 
     public function getSessionMessage() {
 
-        if(!empty($_SESSION['message'])) {
+        if(!empty($_SESSION[\model\LoginSignupModel::$message])) {
 
-            $message = $_SESSION['message'];
+            $message = $_SESSION[\model\LoginSignupModel::$message];
 
             return $message;
         }
@@ -66,7 +66,7 @@ class MapModel {
 
     public function unsetSessionMessage() {
 
-        $_SESSION['message'] = NULL;
+        $_SESSION[\model\LoginSignupModel::$message] = NULL;
     }
     
 }

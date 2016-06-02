@@ -1,4 +1,6 @@
 "use strict";
+
+// functions for fading out messages
 function init() {
 	$(document).ready(function () {
         var $statusText = $(".msgStatus");
@@ -13,6 +15,7 @@ function init() {
         }
     });
 }
+
 function messages(msg) {
     $(document).ready(function () {
         $('#mapmsg').text(msg);

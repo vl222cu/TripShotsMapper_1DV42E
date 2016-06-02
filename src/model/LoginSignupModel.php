@@ -2,7 +2,6 @@
 
 namespace model;
 
-require_once("./src/helper/SessionHandler.php");
 require_once("./library/password_compat-master/lib/password.php");
 require_once("./src/model/LoginSignupRepository.php");
 
@@ -16,6 +15,7 @@ class LoginSignupModel {
     private static $domain = 'domain';
     private static $secure = 'secure';
     private static $httponly = 'httponly';
+    public static $message = 'message';
     private $loginSignupRepository;
 
     public function __construct() {
@@ -91,7 +91,7 @@ class LoginSignupModel {
         // Unset all session values 
         $_SESSION = array();
  
-                // get session parameters 
+        // get session parameters 
         $params = session_get_cookie_params();
          
         // Delete the actual cookie. 
@@ -103,7 +103,6 @@ class LoginSignupModel {
                 $params[self::$httponly]);
 
         session_destroy();
-//        file_put_contents("./src/helper/getMarkers.xml", "");
 	}
 
     public function setPasswordhash($password) {
@@ -127,7 +126,7 @@ class LoginSignupModel {
 
     public function setSessionMessage($msg) {
 
-        $_SESSION['message'] = $msg;
+        $_SESSION[self::$message] = $msg;
     }
 }
 

@@ -27,10 +27,12 @@ class LoginSignupRepository extends base\Repository {
     	$query = $db->prepare($sql);
     	$query->execute(array($user, $pwd));  
 
-    	if($query->rowCount() > 0) {
+        /**
+        * Close PDO-connection to the database
+        */
+        $this->db = null;
 
-        /*    $result = $query->fetch(\PDO::FETCH_ASSOC);
-            $_SESSION[$this->user] = $result[self::$userID]; */
+    	if($query->rowCount() > 0) {
 
     	    return true;
 
@@ -50,6 +52,8 @@ class LoginSignupRepository extends base\Repository {
 
         if($query->rowCount() > 0) {
 
+            $this->db = null;
+
             return false;
 
         } else {
@@ -57,6 +61,8 @@ class LoginSignupRepository extends base\Repository {
             $sql = " INSERT INTO $this->dbTable" . "(" . self::$userName . "," . self::$password . ")" . " VALUES (?, ?)";
             $query = $db->prepare($sql);
             $query->execute(array($user, $pwd));  
+
+            $this->db = null;
 
             if($query->rowCount() > 0) {
 
@@ -77,6 +83,8 @@ class LoginSignupRepository extends base\Repository {
         $query->execute(array($user)); 
         $result = $query->fetch();
 
+        $this->db = null;
+
         if(!$result) {
 
             return false;
@@ -93,6 +101,8 @@ class LoginSignupRepository extends base\Repository {
         $query = $db->prepare($sql);
         $query->execute(array($user)); 
         $result = $query->fetch();
+
+        $this->db = null;
 
         if(!$result) {
 

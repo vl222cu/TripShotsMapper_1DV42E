@@ -24,9 +24,11 @@ class HTMLView {
                         <meta http-equiv='content-type' content='text/html; charset=utf-8' />
                         <meta name='viewport' content='width=device-width, initial-scale=1'>
                     </head>
-                    <body>
+                    <body>                        
                         <h1 class='text-center'>TripShotsMapper</h1>
+                        
                         $body
+                        <footer class='footer'>Copyright &copy; 2016 TripShotsMapper - All rights reserved</footer>
                         <script src='//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js'></script>
                         <script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
                         <script src='//cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js'></script>
