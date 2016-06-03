@@ -24,8 +24,8 @@ class LoginSignupView {
 	const MESSAGE_ERROR_PASSWORD = 'Password is not correct';
 	const MESSAGE_SUCCESS_LOGIN = 'You are now logged in. Welcome to TripShotsmapper!';
 	const MESSAGE_ERROR_USERNAME_TOO_SHORT = 'Username needs to have a minimum of 3 characters';
-	const MESSAGE_ERROR_USERNAME_INVALID_CHARACTERS = 'Username has invalid characters';
-	const MESSAGE_ERROR_PASSWORD_INVALID_CHARACTERS = 'Password has invalid characters';
+	const MESSAGE_ERROR_USERNAME_INVALID_CHARACTERS = 'Username has invalid characters. Only letters, numbers and underscore are accepted characters';
+	const MESSAGE_ERROR_PASSWORD_INVALID_CHARACTERS = 'Password has invalid characters. Only letters, numbers and underscore are accepted characters';
 	const MESSAGE_ERROR_USERNAME_ALREADY_EXISTS = 'Username already exists';
 	const MESSAGE_ERROR_PASSWORD_TOO_SHORT = 'Password needs to have a minimum of 6 characters';
 	const MESSAGE_SUCCESS_SIGNUP = 'You are now signed up. Welcome to TripShotsmapper!';
@@ -139,7 +139,7 @@ class LoginSignupView {
 
     public function setMessage($msg) {
 
-		$this->message = '<p>' . $msg . '</p>';
+		$this->message = '<span class="label label-info">' . $msg . '</span>';
 	}
 
 	public function showLoginSignupPage() {
@@ -203,7 +203,7 @@ class LoginSignupView {
 				                    <form role='form' name='signup' action='?signup' method='post' class='registration-form' accept-charset='utf-8'>
 				                    	<div class='form-group'>
 				                    		<label class='sr-only' for='form-username'>Username</label>
-				                        	<input type='text' name='signupUsername' placeholder='Username...'  class='form-username form-control' id='form-username' value='$this->signupName'>
+				                        	<input type='text' name='signupUsername' placeholder='Username...'  class='form-username form-control' id='form-username' value='$this->signupName'>				    
 				                        </div>
 				                         <div class='form-group'>
 				                        	<label class='sr-only' for='form-password'>Password</label>

@@ -43,13 +43,13 @@ class MapView {
         				</div>	             
                     </div>
                     <div id='messageWrapper'>
-                		<p id='mapmsg'></p>
+                		<span class='label label-info' id='mapmsg'></span>
             		</div>
         ";
 
         if($this->getMessage() !== null) {
 
-			$html .= "<div class='sessionMsg'>$this->message</div>";
+			$html .= "<div class='sessionMsg'><span class='label label-info'>$this->message</span></div>";
 
 		};
 

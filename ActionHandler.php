@@ -72,6 +72,7 @@ if(isset($_GET['action'])) {
 	 	    	$htmlBody = $loginSignupController->logoutUser();
 		    	$htmlView = new \view\HTMLView();
 	 	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);
+	 	     	header('Location: index.php');
 	 	      	exit;
 	 	    break;
 
@@ -91,7 +92,6 @@ if(isset($_GET['action'])) {
 	 	    	$imageView = new \view\ImageView($imageModel);
 	 	    	$markerId = $imageView->getMarkerId();
 	 	    	$imageController = new \controller\ImageController();
-	 	    	var_dump($markerId);
 	 	    	$htmlBody = $imageController->showAllImages($markerId);
 	 	    	$htmlView = new \view\HTMLView();
 	 	     	$htmlView->showHTML("TripShotsMapper", $htmlBody);

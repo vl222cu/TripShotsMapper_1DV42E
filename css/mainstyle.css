@@ -13,6 +13,9 @@ html, body {
     h1 {
         font-size: 20px;
     }
+    .footer {
+        font-size: 6px;
+    }
 }
 
 h1 {
@@ -89,7 +92,7 @@ h2 {
 }
 
 #messageWrapper { 
-    margin-top: 10px;
+    margin-top: 25px;
     text-align: center;
 }
 
@@ -101,9 +104,8 @@ div.loginMsg {
 }
 
 #mapmsg {
-    color: #36B9EB;
-    font-weight: 900;
-    font-size: 30px;
+    color: #FFF;
+    font-size: 25px;
 }
 
 .msgStatus {

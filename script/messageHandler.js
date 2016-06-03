@@ -11,7 +11,7 @@ function init() {
                 $statusText.fadeOut();
                 $loginText.fadeOut();
                 $sessionText.fadeOut();
-            }, 4000);
+            }, 5000);
         }
     });
 }
@@ -24,7 +24,7 @@ function messages(msg) {
         if ($message.length) {
             setTimeout(function () {
                 $message.fadeOut();
-            }, 4000);
+            }, 5000);
         }
     });
 }
